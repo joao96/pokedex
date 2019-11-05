@@ -10,6 +10,11 @@ export const CategoryItem = styled.TouchableOpacity`
   margin-left: 10;
   padding-top: 10;
   justify-content: space-between;
+  shadowColor: rgba(0,0,0, .4); 
+  shadowOffset: { height: 1, width: 1 }; 
+  shadowOpacity: 1; 
+  shadowRadius: 1; 
+  elevation: 10;
 `;
 
 export const CategoryText = styled.Text`
