@@ -39,7 +39,7 @@ const HomeScreen = () => {
         <CategoriesContainer>
           <Row>
             <Column>
-              <Category text="Pokedex" color="#46D7AB" />
+              <Category text="Pokedex" color="#46D7AB" component="ListPokedex" />
             </Column>
             <Column>
               <Category text="Moves" color="#FA6555" />
