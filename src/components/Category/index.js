@@ -14,7 +14,7 @@ const Category = ({
   <Container>
     <CategoryItem
       style={{ backgroundColor: color }}
-      onPress={() => navigation.navigate(component)}
+      onPress={() => (component ? navigation.navigate(component) : null)}
     >
       <CategoryText>{text}</CategoryText>
       <Logo source={pokeball} />
