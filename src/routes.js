@@ -24,8 +24,8 @@ const Routes = createAppContainer(createStackNavigator(
     },
     ListPokedex: {
       screen: ListPokedex,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('HomeScreen')} />,
+      navigationOptions: {
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" />,
         headerRight: <Icon name="menu" size={28} color="#303943" />,
 
         headerStyle: {
@@ -35,11 +35,11 @@ const Routes = createAppContainer(createStackNavigator(
           shadowOpacity: 0, // ios
         },
         headerTransparent: true,
-      }),
+      },
     },
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'ListPokedex',
   },
 ));
 
