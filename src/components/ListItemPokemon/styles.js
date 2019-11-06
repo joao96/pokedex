@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  width: 50%;
+  width: 155;
   height: 110;
   borderRadius: 15;
   paddingTop: 42;
@@ -46,6 +46,7 @@ export const ItemType = styled.View`
   height: 16;
   background: rgba(255, 255, 250, 0.3);
   alignItems: center;
+  justifyContent: center;
   borderRadius: 100;
   marginBottom: 5;
 `;

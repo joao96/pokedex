@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     flex: 1;
-    marginHorizontal: 28;
+    marginHorizontal: 18;
 `;
 
 export const Logo = styled.Image`
@@ -21,6 +21,7 @@ export const Title = styled.Text`
 `;
 
 export const ListContainer = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     alignItems: 'center',
     justifyContent: 'space-between',
