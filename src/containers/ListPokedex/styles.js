@@ -7,16 +7,16 @@ export const Container = styled.View`
 
 export const Logo = styled.Image`
     position: absolute;
-    width: 249.83px;
-    height: 249.83px;
-    marginLeft: 211.59px;
+    width: 249.83;
+    height: 249.83;
+    marginLeft: 110;
 `;
 
 export const Title = styled.Text`
-    fontSize: 30px;
+    fontSize: 30;
     color: #303943;
     fontFamily: ABeeZee-Italic;
-    marginTop: 117px;
+    marginTop: 117;
     marginBottom: 42;
 `;
 
