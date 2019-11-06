@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import {
   Container, Logo, TopContainer, Title, CategoriesContainer,
-  Row, Column, TitleNews, NewsContainer, SearchBarContainer,
+  TitleNews, NewsContainer, SearchBarContainer,
   SearchBarInput, NewsBody, NewsTitle, NewsImage, NewsTitleContainer,
   ButtonViewAll, TitleViewAll, NewsHeader,
 } from './styles';
@@ -37,30 +37,12 @@ const HomeScreen = () => {
           <SearchBarInput placeholder="Search Pokemon, Move, Ability etc" value={value} onChangeText={(text) => onChangeText(text)} />
         </SearchBarContainer>
         <CategoriesContainer>
-          <Row>
-            <Column>
-              <Category text="Pokedex" color="#46D7AB" component="ListPokedex" />
-            </Column>
-            <Column>
-              <Category text="Moves" color="#FA6555" />
-            </Column>
-          </Row>
-          <Row>
-            <Column>
-              <Category text="Abilities" color="#429BED" />
-            </Column>
-            <Column>
-              <Category text="Items" color="#FFCE4B" />
-            </Column>
-          </Row>
-          <Row>
-            <Column>
-              <Category text="Locations" color="#7C538C" />
-            </Column>
-            <Column>
-              <Category text="Type Charts" color="#B1736C" />
-            </Column>
-          </Row>
+          <Category text="Pokedex" color="#46D7AB" component="ListPokedex" />
+          <Category text="Moves" color="#FA6555" />
+          <Category text="Abilities" color="#429BED" />
+          <Category text="Items" color="#FFCE4B" />
+          <Category text="Locations" color="#7C538C" />
+          <Category text="Type Charts" color="#B1736C" />
         </CategoriesContainer>
       </TopContainer>
       <NewsContainer>

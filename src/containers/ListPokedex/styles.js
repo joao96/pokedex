@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     flex: 1;
+    marginHorizontal: 28;
 `;
 
 export const Logo = styled.Image`
@@ -15,14 +16,14 @@ export const Title = styled.Text`
     fontSize: 30px;
     color: #303943;
     fontFamily: ABeeZee-Italic;
-    marginLeft: 26px;
     marginTop: 117px;
     marginBottom: 42;
 `;
 
 export const ListContainer = styled.ScrollView.attrs({
   contentContainerStyle: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },

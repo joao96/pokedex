@@ -45,17 +45,11 @@ export const SearchBarInput = styled.TextInput`
 
 export const CategoriesContainer = styled.View`
     marginTop: 40;
-`;
-
-export const Column = styled.View`
-    flexDirection: column;
-    flex: 1;
-    marginBottom: 15;
-`;
-
-export const Row = styled.View`
+    marginHorizontal: 18;
+    alignItems: center;
+    justifyContent: space-between;
     flexDirection: row;
-    justifyContent: space-between;  
+    flexWrap: wrap;
 `;
 
 export const TitleNews = styled.Text`

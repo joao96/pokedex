@@ -1,20 +1,19 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  width: 155;
+  width: 50%;
   height: 110;
-  border-radius: 15;
-  margin-left: 28;
-  padding-top: 42;
-  marginBottom: 30;
-  justify-content: space-between;
+  borderRadius: 15;
+  paddingTop: 42;
+  marginBottom: 10;
+  justifyContent: space-between;
 `;
 
 export const DescriptionContainer = styled.View`
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: flex-start;
+  flexDirection: column;
+  flexWrap: nowrap;
+  alignContent: flex-start;
   marginLeft: 15;
 `;
 
@@ -34,9 +33,9 @@ export const PokeballLogo = styled.Image`
 `;
 
 export const ItemName = styled.Text`
-  font-size: 14;
+  fontSize: 14;
   marginTop: -25;
-  font-weight: bold;
+  fontWeight: bold;
   color: #fff;
   marginBottom: 5;
 
@@ -47,12 +46,12 @@ export const ItemType = styled.View`
   height: 16;
   background: rgba(255, 255, 250, 0.3);
   alignItems: center;
-  border-radius: 100;
+  borderRadius: 100;
   marginBottom: 5;
 `;
 
 export const ItemTypeText = styled.Text`
-  font-size: 8;
+  fontSize: 8;
   color: #FFFFFF;
   
 `;
