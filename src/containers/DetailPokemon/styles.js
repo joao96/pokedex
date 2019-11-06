@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
 `;
 
@@ -52,12 +52,15 @@ export const InfoContainer = styled.View`
   borderTopRightRadius: 30;
   flex: 1;
   marginTop: 230;
+  paddingHorizontal: 20;
 `;
 
 export const TabContainer = styled.View`
   marginTop: 46;
   flexDirection: row;
-  justifyContent: space-around;
+  justifyContent: space-between;
+  marginBottom: 25;
+  borderBottomWidth: .15;
 `;
 
 export const Tab = styled.TouchableOpacity`
