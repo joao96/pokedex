@@ -53,3 +53,18 @@ export const InfoContainer = styled.View`
   flex: 1;
   marginTop: 230;
 `;
+
+export const TabContainer = styled.View`
+  marginTop: 46;
+  flexDirection: row;
+  justifyContent: space-around;
+`;
+
+export const Tab = styled.TouchableOpacity`
+`;
+
+export const TabText = styled.Text`
+  borderBottomColor: #6C79DB;
+  paddingBottom: 14;
+  fontSize: 14;
+`;
