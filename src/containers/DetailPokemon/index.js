@@ -7,6 +7,8 @@ import {
   InfoContainer, TabContainer, Tab, TabText,
 } from './styles';
 
+import About from '../About';
+
 const DetailPokemon = ({ navigation }) => {
   const [tabs, setTabs] = useState([true, false, false, false]);
 
@@ -82,6 +84,7 @@ const DetailPokemon = ({ navigation }) => {
             </TabText>
           </Tab>
         </TabContainer>
+        <About />
       </InfoContainer>
       <Logo source={image} />
     </Container>
