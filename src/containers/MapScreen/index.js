@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet,
   Alert,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import PropTypes from 'prop-types';
+
 
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { Circle } from 'react-native-maps';
 
-const styles = StyleSheet.create({
-  map: {
-    width: 334,
-    height: 149,
-  },
-});
-
-const MapScreen = () => {
+const MapScreen = ({ navigation }) => {
   const INITIAL_STATE = {
     latitude: -15.7997,
     longitude: -47.8642,
@@ -22,7 +17,7 @@ const MapScreen = () => {
     longitudeDelta: 0.00421,
   };
   const [position, setPosition] = useState(INITIAL_STATE);
-
+  let indicatorSize = 30;
 
   function findCoordinates() {
     Geolocation.getCurrentPosition(
@@ -45,14 +40,24 @@ const MapScreen = () => {
     findCoordinates();
   }, []);
 
+  function handlePokeMapStyle() {
+    const { pokeMap } = navigation.state.params;
+    if (pokeMap) {
+      indicatorSize = 15;
+      return { flex: 1 };
+    }
+
+    return { width: 334, height: 149 };
+  }
+
   return (
     <MapView
-      style={styles.map}
+      style={handlePokeMapStyle()}
       region={position}
     >
       <Circle
         center={position}
-        radius={30}
+        radius={indicatorSize}
         strokeColor="#3FA7F3"
         fillColor="#3FA7F3"
       />
@@ -60,5 +65,10 @@ const MapScreen = () => {
   );
 };
 
+MapScreen.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
-export default MapScreen;
+export default withNavigation(MapScreen);

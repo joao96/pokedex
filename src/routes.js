@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from './components/HomeScreen';
 import ListPokedex from './containers/ListPokedex';
 import DetailPokemon from './containers/DetailPokemon';
+import MapScreen from './containers/MapScreen';
+
 
 const headerStyle = { // remove bottom line and shadow from header
   marginHorizontal: 28,
@@ -46,6 +48,14 @@ const Routes = createAppContainer(createStackNavigator(
 
         headerStyle,
         headerTransparent: true,
+      }),
+
+    },
+    MapScreen: {
+      screen: MapScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('DetailPokemon')} />,
+        title: 'PokeMap',
       }),
 
     },
