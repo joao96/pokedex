@@ -1,6 +1,9 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { TouchableHighlight } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Foundation';
+
 import MapScreen from '../MapScreen';
 
 import {
@@ -13,7 +16,7 @@ import {
 
 const text = 'Bulbasaur can be seen napping in bright sunlight.\nThere is a seed on its back. By soaking up the sun\'s\n rays, the seed grows progressively larger.';
 
-const About = () => (
+const About = ({ navigation }) => (
   <Container>
     <Description>{text}</Description>
     <BodyInfoContainer>
@@ -75,7 +78,9 @@ const About = () => (
     </SectionText>
 
     <GeneralContainer>
-      <MapScreen />
+      <TouchableHighlight onPress={() => { navigation.navigate('MapScreen', { pokeMap: true }); }}>
+        <MapScreen />
+      </TouchableHighlight>
     </GeneralContainer>
 
     <SectionText>
@@ -97,5 +102,11 @@ const About = () => (
 
 );
 
+About.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
-export default About;
+
+export default withNavigation(About);
