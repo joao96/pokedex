@@ -1,8 +1,8 @@
 import React from 'react';
-import MapView from 'react-native-maps';
-import { StyleSheet } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Foundation';
+import MapScreen from '../MapScreen';
+
 import {
   Container, Description,
   BodyInfoContainer, InfoText,
@@ -12,13 +12,6 @@ import {
 
 
 const text = 'Bulbasaur can be seen napping in bright sunlight.\nThere is a seed on its back. By soaking up the sun\'s\n rays, the seed grows progressively larger.';
-
-const styles = StyleSheet.create({
-  map: {
-    height: 150,
-    width: 330,
-  },
-});
 
 const About = () => (
   <Container>
@@ -82,15 +75,7 @@ const About = () => (
     </SectionText>
 
     <GeneralContainer>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: -15.7797200,
-          longitude: -47.9297200,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+      <MapScreen />
     </GeneralContainer>
 
     <SectionText>
