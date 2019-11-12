@@ -92,15 +92,19 @@ const DetailPokemon = ({ navigation }) => {
 };
 
 DetailPokemon.defaultProps = {
+  name: 'Bulbasaur',
+  type1: 'Grass',
   type2: null,
+  image: null,
+  color: null,
 };
 
 DetailPokemon.propTypes = {
-  name: PropTypes.string.isRequired,
-  type1: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  type1: PropTypes.string,
   type2: PropTypes.string,
-  image: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
+  image: PropTypes.number,
+  color: PropTypes.string,
   navigation: PropTypes.shape({
     state: PropTypes.func.isRequired,
   }).isRequired,

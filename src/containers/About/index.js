@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableHighlight } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Foundation';
 
@@ -10,7 +9,7 @@ import {
   Container, Description,
   BodyInfoContainer, InfoText,
   InfoData, Row, Column, SectionText,
-  GeneralContainer,
+  GeneralContainer, MapInteraction,
 } from './styles';
 
 
@@ -78,9 +77,9 @@ const About = ({ navigation }) => (
     </SectionText>
 
     <GeneralContainer>
-      <TouchableHighlight onPress={() => { navigation.navigate('MapScreen', { pokeMap: true }); }}>
+      <MapInteraction onPress={() => { navigation.navigate('MapScreen', { pokeMap: true }); }}>
         <MapScreen />
-      </TouchableHighlight>
+      </MapInteraction>
     </GeneralContainer>
 
     <SectionText>

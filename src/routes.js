@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -56,6 +57,13 @@ const Routes = createAppContainer(createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('DetailPokemon')} />,
         title: 'PokeMap',
+        headerTitleStyle: {
+          fontFamily: 'ABeeZee-Regular',
+          alignSelf: 'center',
+          textAlign: 'center',
+          flex: 1,
+        },
+        headerRight: (<View />),
       }),
 
     },
