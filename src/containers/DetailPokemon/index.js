@@ -8,9 +8,11 @@ import {
 } from './styles';
 
 import About from '../About';
+import BaseStats from '../../components/BaseStats';
 
 const DetailPokemon = ({ navigation }) => {
   const [tabs, setTabs] = useState([true, false, false, false]);
+  const [activeTab, setActiveTab] = useState(0);
 
   const {
     name, type1, type2, image, color,
@@ -28,18 +30,38 @@ const DetailPokemon = ({ navigation }) => {
     switch (active) {
       case 0:
         setTabs([true, false, false, false]);
+        setActiveTab(0);
         break;
       case 1:
         setTabs([false, true, false, false]);
+        setActiveTab(1);
         break;
       case 2:
         setTabs([false, false, true, false]);
+        setActiveTab(2);
         break;
       case 3:
         setTabs([false, false, false, true]);
+        setActiveTab(3);
         break;
       default:
         setTabs([true, false, false, false]);
+        setActiveTab(0);
+    }
+  };
+
+  const handleActiveTab = () => {
+    switch (activeTab) {
+      case 0:
+        return <About />;
+      case 1:
+        return <BaseStats />;
+      case 2:
+        return <About />;
+      case 3:
+        return <BaseStats />;
+      default:
+        return <About />;
     }
   };
 
@@ -84,7 +106,7 @@ const DetailPokemon = ({ navigation }) => {
             </TabText>
           </Tab>
         </TabContainer>
-        <About />
+        {handleActiveTab()}
       </InfoContainer>
       <Logo source={image} />
     </Container>

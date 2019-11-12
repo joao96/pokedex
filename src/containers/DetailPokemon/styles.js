@@ -53,6 +53,7 @@ export const InfoContainer = styled.View`
   flex: 1;
   marginTop: 230;
   paddingHorizontal: 20;
+  paddingBottom: 15;
 `;
 
 export const TabContainer = styled.View`
