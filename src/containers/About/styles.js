@@ -56,3 +56,6 @@ export const SectionText = styled.Text`
 
 export const GeneralContainer = styled.View`
 `;
+
+export const MapInteraction = styled.TouchableHighlight`
+`;
