@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Container, Name, DataContainer,
-  TypeContainer, Type, TypeText, Logo,
+  Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
+  TypeContainer, Type, TypeText, Logo, PokeBallLogo, DottedLogo,
   InfoContainer, TabContainer, Tab, TabText,
 } from './styles';
 
 import About from '../About';
 import BaseStats from '../../components/BaseStats';
+
+const pokeball = require('../../assets/pokeball.png');
+const dotted = require('../../assets/dotted.png');
 
 const DetailPokemon = ({ navigation }) => {
   const [tabs, setTabs] = useState([true, false, false, false]);
@@ -69,9 +72,14 @@ const DetailPokemon = ({ navigation }) => {
   return (
     <Container style={{ backgroundColor: color }}>
       <DataContainer>
-        <Name>
-          {name}
-        </Name>
+        <NameSequenceContainer>
+          <Name>
+            {name}
+          </Name>
+          <SequenceNumber>
+            #001
+          </SequenceNumber>
+        </NameSequenceContainer>
         <TypeContainer>
           <Type>
             <TypeText>{type1}</TypeText>
@@ -109,6 +117,8 @@ const DetailPokemon = ({ navigation }) => {
         {handleActiveTab()}
       </InfoContainer>
       <Logo source={image} />
+      <PokeBallLogo source={pokeball} />
+      <DottedLogo source={dotted} />
     </Container>
   );
 };
