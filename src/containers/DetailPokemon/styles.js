@@ -10,11 +10,24 @@ export const DataContainer = styled.View`
   marginTop: 110;
 `;
 
+export const NameSequenceContainer = styled.View`
+  marginTop: 10;
+  flexDirection: row;
+  justifyContent: space-between;
+`;
+
 export const Name = styled.Text`
     fontSize: 36;
     color: #ffffff;
     fontFamily: ABeeZee-Italic;
     marginBottom: 10;
+`;
+
+export const SequenceNumber = styled.Text`
+    fontSize: 18;
+    color: #ffffff;
+    marginBottom: 10;
+    fontFamily: ABeeZee-Italic;
 `;
 
 export const TypeContainer = styled.View`
@@ -44,6 +57,23 @@ export const Logo = styled.Image`
     height: 200;
     marginTop: 220;
     marginHorizontal: 80;
+`;
+
+export const PokeBallLogo = styled.Image`
+    position: absolute;
+    width: 200;
+    height: 220;
+    right: -5;
+    top: 0;
+`;
+
+export const DottedLogo = styled.Image`
+  position: absolute;
+  width: 57;
+  height: 31;
+  left: 190;
+  top: 4;
+  opacity: 0.5;
 `;
 
 export const InfoContainer = styled.View`
