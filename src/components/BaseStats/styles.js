@@ -27,10 +27,18 @@ export const StatsValue = styled.Text`
 `;
 
 export const StatsLine = styled.View`
+  borderWidth: .15;
+  border-radius: 100;
+  height: 3;
+  position: absolute;
+  `;
+
+export const StatsBlankLine = styled.View`
   marginTop: 10;
   borderWidth: .15;
   border-radius: 100;
   width: 200;
+  background: #F4F5F4;
   height: 3;
 `;
 
