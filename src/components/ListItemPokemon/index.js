@@ -11,44 +11,35 @@ const pokeball = require('../../assets/pokeball.png');
 
 
 const ListItemPokemon = ({
-  name, type1, type2, image, color, navigation,
+  pokemon, color, navigation,
 }) => {
   const handlePress = () => {
-    const pokemonData = {
-      name, type1, type2, image, color,
-    };
-    navigation.navigate('DetailPokemon', pokemonData);
+    navigation.navigate('DetailPokemon', { id: pokemon.id });
   };
+
+  const capitalizeFirstLetter = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+
+  const { name, types, image } = pokemon;
 
   return (
     <Container style={{ backgroundColor: color }} onPress={handlePress}>
-      <Logo source={image} />
+      <Logo source={{ uri: image }} />
       <PokeballLogo source={pokeball} />
       <DescriptionContainer>
-        <ItemName>{name}</ItemName>
-        <ItemType>
-          <ItemTypeText>{type1}</ItemTypeText>
-        </ItemType>
-        {type2 ? (
+        <ItemName>{capitalizeFirstLetter(name)}</ItemName>
+        { types.map((type) => (
           <ItemType>
-            <ItemTypeText>{type2}</ItemTypeText>
+            <ItemTypeText>{type.description}</ItemTypeText>
           </ItemType>
-        ) : null}
+        )) }
       </DescriptionContainer>
     </Container>
 
   );
 };
 
-ListItemPokemon.defaultProps = {
-  type2: null,
-};
-
 ListItemPokemon.propTypes = {
-  name: PropTypes.string.isRequired,
-  type1: PropTypes.string.isRequired,
-  type2: PropTypes.string,
-  image: PropTypes.number.isRequired,
+  pokemon: PropTypes.isRequired,
   color: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

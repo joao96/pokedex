@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
+import reactotron from 'reactotron-react-native';
 import {
   Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
   TypeContainer, Type, TypeText, Logo, PokeBallLogo, DottedLogo,
@@ -10,16 +13,30 @@ import {
 import About from '../About';
 import BaseStats from '../../components/BaseStats';
 
+import colors from '../../assets/pokemons/colors';
+
 const pokeball = require('../../assets/pokeball.png');
 const dotted = require('../../assets/dotted.png');
 
 const DetailPokemon = ({ navigation }) => {
   const [tabs, setTabs] = useState([true, false, false, false]);
+  const [pokemon, setPokemon] = useState({});
   const [activeTab, setActiveTab] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const {
-    name, type1, type2, image, color,
+    id,
   } = navigation.state.params;
+
+  const fetchPokemon = async () => {
+    const response = await axios.get('https://pokeapi.co/api/v2/pokemon/1/');
+    setPokemon(response.data);
+    setIsLoading(false);
+  };
+
+  useEffect(async () => {
+    await fetchPokemon();
+  }, []);
 
   function tabTextStyle(index) {
     if (!tabs[index]) {
@@ -29,28 +46,29 @@ const DetailPokemon = ({ navigation }) => {
     return { opacity: 1, borderBottomWidth: 2 };
   }
 
-  const handleTabPress = (active) => {
-    switch (active) {
-      case 0:
-        setTabs([true, false, false, false]);
-        setActiveTab(0);
-        break;
-      case 1:
-        setTabs([false, true, false, false]);
-        setActiveTab(1);
-        break;
-      case 2:
-        setTabs([false, false, true, false]);
-        setActiveTab(2);
-        break;
-      case 3:
-        setTabs([false, false, false, true]);
-        setActiveTab(3);
-        break;
-      default:
-        setTabs([true, false, false, false]);
-        setActiveTab(0);
+  const returnPokemonColor = (types) => {
+    let color = 'transparent';
+    types.forEach((type) => { color = colors[type.description]; });
+    return color;
+  };
+
+  const returnPokemonNumber = (id) => {
+    if ((id / 10) >= 10) {
+      return `#${id}`;
     }
+    if ((id / 10) > 1) {
+      return `#0${id}`;
+    }
+    return `#00${id}`;
+  };
+
+  const capitalizeFirstLetter = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+
+  const handleTabPress = (active) => {
+    const array = [false, false, false, false];
+    array[active] = true;
+    setTabs(array);
+    setActiveTab(active);
   };
 
   const handleActiveTab = () => {
@@ -68,27 +86,30 @@ const DetailPokemon = ({ navigation }) => {
     }
   };
 
-
+  if (isLoading) {
+    return (
+      <Container contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#46D7AB" />
+      </Container>
+    );
+  }
   return (
-    <Container style={{ backgroundColor: color }}>
+    <Container style={{ backgroundColor: '#A98FF3' }}>
       <DataContainer>
         <NameSequenceContainer>
           <Name>
-            {name}
+            {capitalizeFirstLetter(pokemon.name)}
           </Name>
           <SequenceNumber>
-            #001
+            {returnPokemonNumber(id)}
           </SequenceNumber>
         </NameSequenceContainer>
         <TypeContainer>
-          <Type>
-            <TypeText>{type1}</TypeText>
-          </Type>
-          {type2 ? (
+          { pokemon.types.map((type) => (
             <Type>
-              <TypeText>{type2}</TypeText>
+              <TypeText>{type.description}</TypeText>
             </Type>
-          ) : null}
+          )) }
         </TypeContainer>
       </DataContainer>
       <InfoContainer>
@@ -116,27 +137,15 @@ const DetailPokemon = ({ navigation }) => {
         </TabContainer>
         {handleActiveTab()}
       </InfoContainer>
-      <Logo source={image} />
+      <Logo source={{ uri: pokemon.sprites.front_default }} />
       <PokeBallLogo source={pokeball} />
       <DottedLogo source={dotted} />
     </Container>
   );
 };
 
-DetailPokemon.defaultProps = {
-  name: 'Bulbasaur',
-  type1: 'Grass',
-  type2: null,
-  image: null,
-  color: null,
-};
-
 DetailPokemon.propTypes = {
-  name: PropTypes.string,
-  type1: PropTypes.string,
-  type2: PropTypes.string,
-  image: PropTypes.number,
-  color: PropTypes.string,
+  id: PropTypes.isRequired,
   navigation: PropTypes.shape({
     state: PropTypes.func.isRequired,
   }).isRequired,

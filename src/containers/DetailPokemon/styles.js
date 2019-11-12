@@ -91,7 +91,7 @@ export const TabContainer = styled.View`
   flexDirection: row;
   justifyContent: space-between;
   marginBottom: 25;
-  borderBottomWidth: .15;
+  borderBottomWidth: .25;
 `;
 
 export const Tab = styled.TouchableOpacity`

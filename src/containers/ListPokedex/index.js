@@ -1,107 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
+
+import reactotron from 'reactotron-react-native';
+import { ActivityIndicator } from 'react-native';
 import ListItemPokemon from '../../components/ListItemPokemon';
 
 import {
   Container, Logo, Title, ListContainer,
 } from './styles';
 
-const Bulbasaur = require('../../assets/pokemons/bulbasaur.png');
-const Ivysaur = require('../../assets/pokemons/ivysaur.png');
-const Venusaur = require('../../assets/pokemons/venusaur.png');
-
-const Charmander = require('../../assets/pokemons/charmander.png');
-const Charmeleon = require('../../assets/pokemons/charmeleon.png');
-const Charizard = require('../../assets/pokemons/charizard.png');
-
-const Squirtle = require('../../assets/pokemons/squirtle.png');
-const WarTortle = require('../../assets/pokemons/wartortle.png');
-const Blastoise = require('../../assets/pokemons/blastoise.png');
-
-const Pikachu = require('../../assets/pokemons/pikachu.png');
-
+import colors from '../../assets/pokemons/colors';
 
 const pokeball = require('../../assets/pokeball.png');
 
-const ListPokedex = () => (
-  <Container>
-    <Logo source={pokeball} />
-    <Title>Pokedex</Title>
-    <ListContainer>
-      {/* bulbasaur */}
-      <ListItemPokemon
-        name="Bulbasaur"
-        type1="Grass"
-        type2="Poison"
-        image={Bulbasaur}
-        color="#46D7AB"
-      />
-      <ListItemPokemon
-        name="Ivysaur"
-        type1="Grass"
-        type2="Poison"
-        image={Ivysaur}
-        color="#46D7AB"
-      />
-      <ListItemPokemon
-        name="Venusaur"
-        type1="Grass"
-        type2="Poison"
-        image={Venusaur}
-        color="#46D7AB"
-      />
-      {/* charmander */}
-      <ListItemPokemon
-        name="Charmander"
-        type1="Fire"
-        image={Charmander}
-        color="#FB6C6C"
-      />
+const ListPokedex = () => {
+  const [pokemons, setPokemons] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-      <ListItemPokemon
-        name="Charmeleon"
-        type1="Fire"
-        image={Charmeleon}
-        color="#FB6C6C"
-      />
+  const fetchPokemon = async () => {
+    const response = await axios.get('https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons');
+    setPokemons(response.data);
+    setIsLoading(false);
+  };
 
-      <ListItemPokemon
-        name="Charizard"
-        type1="Fire"
-        image={Charizard}
-        color="#FB6C6C"
-      />
+  useEffect(async () => {
+    await fetchPokemon();
+  }, []);
 
-      {/* squirtle */}
-      <ListItemPokemon
-        name="Squirtle"
-        type1="Water"
-        image={Squirtle}
-        color="#46C5D7"
-      />
+  const returnPokemonColor = (types) => {
+    let color = 'transparent';
+    types.forEach((type) => { color = colors[type.description]; });
+    return color;
+  };
 
-      <ListItemPokemon
-        name="Wartortle"
-        type1="Water"
-        image={WarTortle}
-        color="#46C5D7"
-      />
-
-      <ListItemPokemon
-        name="Blastoise"
-        type1="Water"
-        image={Blastoise}
-        color="#46C5D7"
-      />
-
-      <ListItemPokemon
-        name="Pikachu"
-        type1="Electric"
-        image={Pikachu}
-        color="#FFDC7D"
-      />
-    </ListContainer>
-  </Container>
-);
+  if (isLoading) {
+    return (
+      <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#46D7AB" />
+      </Container>
+    );
+  }
+  return (
+    <Container>
+      <Logo source={pokeball} />
+      <Title>Pokedex</Title>
+      <ListContainer>
+        {
+        pokemons.map((pokemon) => (
+          <ListItemPokemon
+            key={pokemon.id}
+            pokemon={pokemon}
+            color={returnPokemonColor(pokemon.types)}
+          />
+        ))
+      }
+      </ListContainer>
+    </Container>
+  );
+};
 
 export default ListPokedex;
