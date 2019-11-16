@@ -5,6 +5,13 @@ export const Container = styled.ScrollView`
   flex: 1;
 `;
 
+export const LoadingContainer = styled.View`
+  justifyContent: center;
+  alignItems: center;
+  flex: 1;
+  marginHorizontal: 18;
+`;
+
 export const DataContainer = styled.View`
   marginHorizontal: 33;
   marginTop: 110;
@@ -48,7 +55,7 @@ export const Type = styled.View`
 export const TypeText = styled.Text`
   fontSize: 12;
   color: #FFFFFF;
-  
+
 `;
 
 export const Logo = styled.Image`
