@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import reactotron from 'reactotron-react-native';
 import { ActivityIndicator } from 'react-native';
 import ListItemPokemon from '../../components/ListItemPokemon';
 
 import {
-  Container, Logo, Title, ListContainer,
+  Container, Logo, Title, ListContainer, LoadingContainer,
 } from './styles';
 
 import colors from '../../assets/pokemons/colors';
@@ -36,9 +35,9 @@ const ListPokedex = () => {
 
   if (isLoading) {
     return (
-      <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <LoadingContainer>
         <ActivityIndicator size="large" color="#46D7AB" />
-      </Container>
+      </LoadingContainer>
     );
   }
   return (

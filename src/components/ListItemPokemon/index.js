@@ -17,7 +17,7 @@ const ListItemPokemon = ({
     navigation.navigate('DetailPokemon', { id: pokemon.id });
   };
 
-  const capitalizeFirstLetter = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+  const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
   const { name, types, image } = pokemon;
 
@@ -26,10 +26,10 @@ const ListItemPokemon = ({
       <Logo source={{ uri: image }} />
       <PokeballLogo source={pokeball} />
       <DescriptionContainer>
-        <ItemName>{capitalizeFirstLetter(name)}</ItemName>
+        <ItemName>{capitalize(name)}</ItemName>
         { types.map((type) => (
           <ItemType>
-            <ItemTypeText>{type.description}</ItemTypeText>
+            <ItemTypeText>{capitalize(type.description)}</ItemTypeText>
           </ItemType>
         )) }
       </DescriptionContainer>
