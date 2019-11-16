@@ -7,7 +7,7 @@ import reactotron from 'reactotron-react-native';
 import {
   Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
   TypeContainer, Type, TypeText, Logo, PokeBallLogo, DottedLogo,
-  InfoContainer, TabContainer, Tab, TabText,
+  InfoContainer, TabContainer, Tab, TabText, LoadingContainer,
 } from './styles';
 
 import About from '../About';
@@ -30,6 +30,7 @@ const DetailPokemon = ({ navigation }) => {
 
   const fetchPokemon = async () => {
     const response = await axios.get('https://pokeapi.co/api/v2/pokemon/1/');
+    reactotron.log(response.data);
     setPokemon(response.data);
     setIsLoading(false);
   };
@@ -48,7 +49,7 @@ const DetailPokemon = ({ navigation }) => {
 
   const returnPokemonColor = (types) => {
     let color = 'transparent';
-    types.forEach((type) => { color = colors[type.description]; });
+    types.forEach((el) => { color = colors[el.type.name]; });
     return color;
   };
 
@@ -62,7 +63,7 @@ const DetailPokemon = ({ navigation }) => {
     return `#00${id}`;
   };
 
-  const capitalizeFirstLetter = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+  const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
   const handleTabPress = (active) => {
     const array = [false, false, false, false];
@@ -76,7 +77,7 @@ const DetailPokemon = ({ navigation }) => {
       case 0:
         return <About />;
       case 1:
-        return <BaseStats />;
+        return <BaseStats baseStats={pokemon.stats} />;
       case 2:
         return <About />;
       case 3:
@@ -88,26 +89,26 @@ const DetailPokemon = ({ navigation }) => {
 
   if (isLoading) {
     return (
-      <Container contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}>
+      <LoadingContainer>
         <ActivityIndicator size="large" color="#46D7AB" />
-      </Container>
+      </LoadingContainer>
     );
   }
   return (
-    <Container style={{ backgroundColor: '#A98FF3' }}>
+    <Container style={{ backgroundColor: returnPokemonColor(pokemon.types) }}>
       <DataContainer>
         <NameSequenceContainer>
           <Name>
-            {capitalizeFirstLetter(pokemon.name)}
+            {capitalize(pokemon.name)}
           </Name>
           <SequenceNumber>
             {returnPokemonNumber(id)}
           </SequenceNumber>
         </NameSequenceContainer>
         <TypeContainer>
-          { pokemon.types.map((type) => (
+          { pokemon.types.map((el) => (
             <Type>
-              <TypeText>{type.description}</TypeText>
+              <TypeText>{capitalize(el.type.name)}</TypeText>
             </Type>
           )) }
         </TypeContainer>
