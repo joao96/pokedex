@@ -32,7 +32,6 @@ export const ListContainer = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     marginHorizontal: 18,
-    alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap',
