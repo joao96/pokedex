@@ -75,7 +75,13 @@ const DetailPokemon = ({ navigation }) => {
   const handleActiveTab = () => {
     switch (activeTab) {
       case 0:
-        return <About />;
+        return (
+          <About
+            height={pokemon.height}
+            weight={pokemon.weight}
+            baseExp={pokemon.base_experience}
+          />
+        );
       case 1:
         return <BaseStats baseStats={pokemon.stats} />;
       case 2:
