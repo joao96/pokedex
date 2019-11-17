@@ -15,7 +15,9 @@ import {
 
 const text = 'Bulbasaur can be seen napping in bright sunlight.\nThere is a seed on its back. By soaking up the sun\'s\n rays, the seed grows progressively larger.';
 
-const About = ({ navigation }) => (
+const About = ({
+  navigation, height, weight, baseExp,
+}) => (
   <Container>
     <Description>{text}</Description>
     <BodyInfoContainer>
@@ -29,10 +31,10 @@ const About = ({ navigation }) => (
       </Row>
       <Row>
         <Column>
-          <InfoData>2’3.6” (0.70 cm)</InfoData>
+          <InfoData>{height * 10} cm</InfoData>
         </Column>
         <Column>
-          <InfoData>15.2 lbs (6.9 kg)</InfoData>
+          <InfoData>{weight} kg</InfoData>
         </Column>
       </Row>
     </BodyInfoContainer>
@@ -92,7 +94,7 @@ const About = ({ navigation }) => (
           <InfoText>Base EXP</InfoText>
         </Column>
         <Column>
-          <InfoData>64</InfoData>
+          <InfoData>{baseExp}</InfoData>
         </Column>
       </Row>
     </GeneralContainer>
@@ -102,6 +104,9 @@ const About = ({ navigation }) => (
 );
 
 About.propTypes = {
+  height: PropTypes.string.isRequired,
+  weight: PropTypes.number.isRequired,
+  baseExp: PropTypes.number.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
