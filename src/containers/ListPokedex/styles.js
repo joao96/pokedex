@@ -16,7 +16,7 @@ export const Logo = styled.Image`
   position: absolute;
   width: 249.83;
   height: 249.83;
-  marginLeft: 110;
+  alignSelf: flex-end;
 `;
 
 export const Title = styled.Text`

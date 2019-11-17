@@ -1,43 +1,54 @@
 import React, { useState, useEffect } from 'react';
-
+import PropTypes from 'prop-types';
+import Pluralize from 'pluralize';
 import axios from 'axios';
 
 import { ActivityIndicator } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import reactotron from 'reactotron-react-native';
 import {
-  ListItemContainer, Container, LoadingContainer, Title, ButtonsContainer, Button,
-  ItemContainer, DescriptionContainer, ItemName, PokeballLogo, InfoText, Blank,
+  ListElementContainer, Container, LoadingContainer, Title, ButtonsContainer, Button,
+  ElementContainer, DescriptionContainer, ElementName, PokeballLogo, InfoText, Blank,
 } from './styles';
 
 const pokeball = require('../../assets/pokeball.png');
 
-const Items = () => {
-  const [items, setItems] = useState([]);
+const Elements = ({ navigation }) => {
+  const [data, setData] = useState([]);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [type] = useState(navigation.state.params.type);
 
-
-  const fetchItems = async (type) => {
-    if (type === 'next') {
+  const fetchData = async (paginate) => {
+    if (paginate === 'next') {
       setOffset(offset + 20);
     } else {
       setOffset(offset - 20);
     }
-    const response = await axios.get(`https://pokeapi.co/api/v2/item/?offset=${offset}&limit=20`);
+    const response = await axios.get(`https://pokeapi.co/api/v2/${type}/?offset=${offset}&limit=20`);
     reactotron.log(response);
-    setItems(response.data.results);
+    setData(response.data.results);
     setCount(response.data.count);
     setIsLoading(false);
   };
 
-  const capitalize = (itemName) => itemName.charAt(0).toUpperCase() + itemName.slice(1);
+  const capitalize = (name) => name.charAt(0).toUpperCase() + name.slice(1);
 
   useEffect(() => {
-    fetchItems('next');
+    fetchData('next');
   }, []);
 
-  const ItemColor = () => ({ backgroundColor: '#FFCE4B' });
+  const elementColor = () => {
+    switch (type) {
+      case 'move':
+        return { backgroundColor: '#FA6555' };
+      case 'item':
+        return { backgroundColor: '#FFCE4B' };
+      default:
+        return { backgroundColor: '#429BED' };
+    }
+  };
 
 
   if (isLoading) {
@@ -50,28 +61,28 @@ const Items = () => {
   return (
     <Container>
       <PokeballLogo source={pokeball} />
-      <Title>Items</Title>
-      <ListItemContainer>
+      <Title>{Pluralize(`${capitalize(type)}`)}</Title>
+      <ListElementContainer>
         {
-          items.map((item) => (
-            <ItemContainer style={ItemColor()}>
+          data.map((el) => (
+            <ElementContainer style={elementColor()}>
               {/* <Logo source={{ uri: image }} /> */}
               <DescriptionContainer>
-                <ItemName>{capitalize(item.name.replace(/[^a-zA-Z0-9]/g, ' '))}</ItemName>
+                <ElementName>{capitalize(el.name.replace(/[^a-zA-Z0-9]/g, ' '))}</ElementName>
                 {/* { item.attributes.map((attribute) => (
                   <ItemAttr>
                     <ItemAttrText>{capitalize(attribute.name)}</ItemAttrText>
                   </ItemAttr>
                 )) } */}
               </DescriptionContainer>
-            </ItemContainer>
+            </ElementContainer>
           ))
         }
-      </ListItemContainer>
+      </ListElementContainer>
       <ButtonsContainer>
         { offset > 20
           ? (
-            <Button onPress={() => fetchItems('previous')}>
+            <Button onPress={() => fetchData('previous')}>
               <InfoText>PREVIOUS</InfoText>
             </Button>
           )
@@ -79,7 +90,7 @@ const Items = () => {
         <InfoText>Page {((offset - 20) / 20) + 1} of {Math.floor(count / 20) + 1}</InfoText>
         { offset < count
           ? (
-            <Button onPress={() => fetchItems('next')} title="Next">
+            <Button onPress={() => fetchData('next')} title="Next">
               <InfoText>NEXT</InfoText>
             </Button>
           )
@@ -89,4 +100,11 @@ const Items = () => {
   );
 };
 
-export default Items;
+Elements.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+
+export default withNavigation(Elements);

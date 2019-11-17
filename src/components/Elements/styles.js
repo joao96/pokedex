@@ -25,10 +25,10 @@ export const PokeballLogo = styled.Image`
   position: absolute;
   width: 249.83;
   height: 249.83;
-  marginLeft: 110;
+  alignSelf: flex-end;
 `;
 
-export const ListItemContainer = styled.ScrollView.attrs({
+export const ListElementContainer = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     marginHorizontal: 18,
@@ -39,7 +39,7 @@ export const ListItemContainer = styled.ScrollView.attrs({
   },
 })``;
 
-export const ItemContainer = styled.View`
+export const ElementContainer = styled.View`
   width: 48%;
   height: 110;
   borderRadius: 15;
@@ -56,7 +56,7 @@ export const DescriptionContainer = styled.View`
   marginLeft: 15;
 `;
 
-export const ItemName = styled.Text`
+export const ElementName = styled.Text`
   fontSize: 14;
   marginTop: -25;
   fontWeight: bold;
