@@ -3,7 +3,6 @@ import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-import reactotron from 'reactotron-react-native';
 import {
   Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
   TypeContainer, Type, TypeText, Logo, PokeBallLogo, DottedLogo,
@@ -12,27 +11,43 @@ import {
 
 import About from '../About';
 import BaseStats from '../../components/BaseStats';
+import Evolution from '../../components/Evolution';
 
 import colors from '../../assets/pokemons/colors';
 
 const pokeball = require('../../assets/pokeball.png');
 const dotted = require('../../assets/dotted.png');
 
+const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons/';
+
 const DetailPokemon = ({ navigation }) => {
   const [tabs, setTabs] = useState([true, false, false, false]);
   const [pokemon, setPokemon] = useState({});
   const [activeTab, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [evolutions, setEvolutions] = useState([]);
 
   const {
     id,
   } = navigation.state.params;
 
+
+  const fetchEvolution = async (pokemon, aux) => {
+    aux.push(pokemon);
+    if (aux[aux.length - 1].evolutions.length > 0) {
+      const response = await axios.get(`${api}${aux[aux.length - 1].evolutions[0].id}`);
+      return fetchEvolution(response.data, aux);
+    }
+    return aux;
+  };
+
   const fetchPokemon = async () => {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-    reactotron.log(response.data);
+    const response = await axios.get(`${api}${id}/`);
     setPokemon(response.data);
     setIsLoading(false);
+    if (response.data.evolutions.length > 0) {
+      setEvolutions(fetchEvolution(response.data, []));
+    }
   };
 
   useEffect(() => {
@@ -49,7 +64,7 @@ const DetailPokemon = ({ navigation }) => {
 
   const returnPokemonColor = (types) => {
     let color = 'transparent';
-    types.forEach((el) => { color = colors[el.type.name]; });
+    types.forEach((type) => { color = colors[type.description]; });
     return color;
   };
 
@@ -87,7 +102,7 @@ const DetailPokemon = ({ navigation }) => {
       case 2:
         return <About />;
       case 3:
-        return <BaseStats />;
+        return <Evolution evolutions={evolutions} />;
       default:
         return <About />;
     }
@@ -112,9 +127,9 @@ const DetailPokemon = ({ navigation }) => {
           </SequenceNumber>
         </NameSequenceContainer>
         <TypeContainer>
-          { pokemon.types.map((el) => (
+          { pokemon.types.map((type) => (
             <Type>
-              <TypeText>{capitalize(el.type.name)}</TypeText>
+              <TypeText>{capitalize(type.description)}</TypeText>
             </Type>
           )) }
         </TypeContainer>
@@ -144,7 +159,7 @@ const DetailPokemon = ({ navigation }) => {
         </TabContainer>
         {handleActiveTab()}
       </InfoContainer>
-      <Logo source={{ uri: pokemon.sprites.front_default }} />
+      <Logo source={{ uri: pokemon.image }} />
       <PokeBallLogo source={pokeball} />
       <DottedLogo source={dotted} />
     </Container>
