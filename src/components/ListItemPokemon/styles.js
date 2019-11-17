@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  width: 155;
+  width: 48%;
   height: 110;
   borderRadius: 15;
   paddingTop: 42;
@@ -19,17 +19,17 @@ export const DescriptionContainer = styled.View`
 
 export const Logo = styled.Image`
     position: absolute;
-    width: 76;
-    height: 71;
-    marginTop: 30;
-    marginLeft: 70;
+    width: 90;
+    height: 74;
+    marginTop: 25;
+    alignSelf: flex-end;
 `;
 
 export const PokeballLogo = styled.Image`
     position: absolute;
+    alignSelf: flex-end;
     width: 83px;
     height: 83px;
-    marginLeft: 74;
 `;
 
 export const ItemName = styled.Text`
@@ -54,5 +54,5 @@ export const ItemType = styled.View`
 export const ItemTypeText = styled.Text`
   fontSize: 8;
   color: #FFFFFF;
-  
+
 `;
