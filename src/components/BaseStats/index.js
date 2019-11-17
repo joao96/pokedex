@@ -1,78 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-
+import reactotron from 'reactotron-react-native';
 import {
   Container, StatsContainer, StatsText,
   StatsLine, StatsValue, SingleStat, GeneralContainer,
   SectionText, InfoText, StatsBlankLine,
 } from './styles';
 
-const BaseStats = () => {
-  const lineColorPercentage = (value, isTotal) => {
-    if (!isTotal) {
-      if (value < 50) {
-        return { backgroundColor: '#FB6C6C', width: value * 2 };
-      }
-      return { backgroundColor: '#4BC07A', width: value * 2 };
-    }
-    if (value < 300) {
-      return { backgroundColor: '#FB6C6C', width: value * 2 };
-    }
-    return { backgroundColor: '#4BC07A', width: (value / 2) - 50 };
-  };
+
+const BaseStats = ({ baseStats }) => {
+  const lineColorPercentage = (value) => ({
+    backgroundColor: value >= 50 ? '#4BC07A' : '#FB6C6C',
+    width: value > 100 ? 200 : value * 2,
+  });
+
+  const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+
+  useEffect(() => {
+    reactotron.log(baseStats);
+  }, []);
 
   return (
     <Container>
       <StatsContainer>
-        <SingleStat>
-          <StatsText>HP</StatsText>
-          <StatsValue>45</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(45, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Attack</StatsText>
-          <StatsValue>60</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(60, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Defense</StatsText>
-          <StatsValue>48</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(48, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Sp. Atk</StatsText>
-          <StatsValue>65</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(65, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Sp. Def</StatsText>
-          <StatsValue>65</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(65, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Speed</StatsText>
-          <StatsValue>45</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(45, false)} />
-          </StatsBlankLine>
-        </SingleStat>
-        <SingleStat>
-          <StatsText>Total</StatsText>
-          <StatsValue>317</StatsValue>
-          <StatsBlankLine>
-            <StatsLine style={lineColorPercentage(317, true)} />
-          </StatsBlankLine>
-        </SingleStat>
+        { baseStats.map((el) => (
+          <SingleStat>
+            <StatsText>{capitalize(el.stat.name)}</StatsText>
+            <StatsValue>{el.base_stat}</StatsValue>
+            <StatsBlankLine>
+              <StatsLine style={lineColorPercentage(el.base_stat)} />
+            </StatsBlankLine>
+          </SingleStat>
+        ))}
       </StatsContainer>
 
       <GeneralContainer>
@@ -81,6 +41,10 @@ const BaseStats = () => {
       </GeneralContainer>
     </Container>
   );
+};
+
+BaseStats.propTypes = {
+  baseStats: PropTypes.isRequired,
 };
 
 export default BaseStats;

@@ -29,7 +29,7 @@ const DetailPokemon = ({ navigation }) => {
   } = navigation.state.params;
 
   const fetchPokemon = async () => {
-    const response = await axios.get('https://pokeapi.co/api/v2/pokemon/1/');
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`);
     reactotron.log(response.data);
     setPokemon(response.data);
     setIsLoading(false);
