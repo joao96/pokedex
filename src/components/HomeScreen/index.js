@@ -40,7 +40,7 @@ const HomeScreen = () => {
           <Category text="Pokedex" color="#46D7AB" component="ListPokedex" />
           <Category text="Moves" color="#FA6555" />
           <Category text="Abilities" color="#429BED" />
-          <Category text="Items" color="#FFCE4B" />
+          <Category text="Items" color="#FFCE4B" component="Items" />
           <Category text="Locations" color="#7C538C" />
           <Category text="Type Charts" color="#B1736C" />
         </CategoriesContainer>
