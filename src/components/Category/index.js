@@ -9,11 +9,11 @@ import {
 const pokeball = require('../../assets/pokeball.png');
 
 const Category = ({
-  text, color, component, navigation,
+  text, color, component, navigation, type,
 }) => (
   <CategoryItem
     style={{ backgroundColor: color }}
-    onPress={() => (component ? navigation.navigate(component) : null)}
+    onPress={() => (component ? navigation.navigate(component, { type }) : null)}
   >
     <CategoryText>{text}</CategoryText>
     <Logo source={pokeball} />
@@ -22,10 +22,12 @@ const Category = ({
 
 Category.defaultProps = {
   component: null,
+  type: '',
 };
 
 Category.propTypes = {
   text: PropTypes.string.isRequired,
+  type: PropTypes.string,
   color: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

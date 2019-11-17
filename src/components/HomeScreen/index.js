@@ -16,6 +16,7 @@ const text = 'What Pokemon\nare you looking for?';
 const HomeScreen = () => {
   const [value, onChangeText] = useState();
   const [news, setNews] = useState([]);
+  const [elementsType] = useState(['move', 'ability', 'item']);
 
   async function fetchPokemonNews() {
     // eslint-disable-next-line
@@ -38,9 +39,9 @@ const HomeScreen = () => {
         </SearchBarContainer>
         <CategoriesContainer>
           <Category text="Pokedex" color="#46D7AB" component="ListPokedex" />
-          <Category text="Moves" color="#FA6555" />
-          <Category text="Abilities" color="#429BED" />
-          <Category text="Items" color="#FFCE4B" component="Items" />
+          <Category text="Moves" color="#FA6555" component="Elements" type={elementsType[0]} />
+          <Category text="Abilities" color="#429BED" component="Elements" type={elementsType[1]} />
+          <Category text="Items" color="#FFCE4B" component="Elements" type={elementsType[2]} />
           <Category text="Locations" color="#7C538C" />
           <Category text="Type Charts" color="#B1736C" />
         </CategoriesContainer>
