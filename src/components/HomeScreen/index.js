@@ -17,14 +17,14 @@ const HomeScreen = () => {
   const [value, onChangeText] = useState();
   const [news, setNews] = useState([]);
 
-  useEffect(() => {
-    async function fetchPokemonNews() {
-      // eslint-disable-next-line
-      const response = await fetch('http://newsapi.org/v2/everything?q=Pokemon&sortBy=popularity&from=2019-11-04&to=2019-11-04&apiKey=4678cbab4c894c8584eb00facd140e40');
-      const data = await response.json();
-      setNews(data.articles);
-    }
+  async function fetchPokemonNews() {
+    // eslint-disable-next-line
+    const response = await fetch('http://newsapi.org/v2/everything?q=Pokemon&sortBy=popularity&from=2019-11-04&to=2019-11-04&apiKey=4678cbab4c894c8584eb00facd140e40');
+    const data = await response.json();
+    setNews(data.articles);
+  }
 
+  useEffect(() => {
     fetchPokemonNews();
   }, []);
 
