@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { ActivityIndicator } from 'react-native';
 import ListItemPokemon from '../../components/ListItemPokemon';
-
+import FilterMenu from '../../components/FilterMenu';
 import {
   Container, Logo, Title, ListContainer, LoadingContainer,
 } from './styles';
@@ -46,15 +46,16 @@ const ListPokedex = () => {
       <Title>Pokedex</Title>
       <ListContainer>
         {
-        pokemons.map((pokemon) => (
-          <ListItemPokemon
-            key={pokemon.id}
-            pokemon={pokemon}
-            color={returnPokemonColor(pokemon.types)}
-          />
-        ))
-      }
+          pokemons.map((pokemon) => (
+            <ListItemPokemon
+              key={pokemon.id}
+              pokemon={pokemon}
+              color={returnPokemonColor(pokemon.types)}
+            />
+          ))
+        }
       </ListContainer>
+      <FilterMenu />
     </Container>
   );
 };
