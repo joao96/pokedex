@@ -89,7 +89,7 @@ export const InfoContainer = styled.View`
   borderTopRightRadius: 30;
   flex: 1;
   marginTop: 230;
-  paddingHorizontal: 20;
+  paddingHorizontal: 28;
   paddingBottom: 15;
 `;
 

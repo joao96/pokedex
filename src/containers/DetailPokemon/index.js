@@ -11,7 +11,7 @@ import {
 
 import About from '../About';
 import BaseStats from '../../components/BaseStats';
-import Evolution from '../../components/Evolution';
+import Evolutions from '../../components/Evolution';
 
 import colors from '../../assets/pokemons/colors';
 
@@ -34,8 +34,8 @@ const DetailPokemon = ({ navigation }) => {
 
   const fetchEvolution = async (pokemon, aux) => {
     aux.push(pokemon);
-    if (aux[aux.length - 1].evolutions.length > 0) {
-      const response = await axios.get(`${api}${aux[aux.length - 1].evolutions[0].id}`);
+    if (pokemon.evolutions.length > 0) {
+      const response = await axios.get(`${api}${pokemon.evolutions[0].id}`);
       return fetchEvolution(response.data, aux);
     }
     return aux;
@@ -47,6 +47,8 @@ const DetailPokemon = ({ navigation }) => {
     setIsLoading(false);
     if (response.data.evolutions.length > 0) {
       setEvolutions(fetchEvolution(response.data, []));
+    } else {
+      setEvolutions(response.data);
     }
   };
 
@@ -100,9 +102,9 @@ const DetailPokemon = ({ navigation }) => {
       case 1:
         return <BaseStats baseStats={pokemon.stats} />;
       case 2:
-        return <About />;
+        return <Evolutions evolutions={evolutions} />;
       case 3:
-        return <Evolution evolutions={evolutions} />;
+        return <About />;
       default:
         return <About />;
     }
