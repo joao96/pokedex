@@ -23,8 +23,8 @@ const ListPokedex = () => {
     setIsLoading(false);
   };
 
-  useEffect(async () => {
-    await fetchPokemon();
+  useEffect(() => {
+    fetchPokemon();
   }, []);
 
   const returnPokemonColor = (types) => {

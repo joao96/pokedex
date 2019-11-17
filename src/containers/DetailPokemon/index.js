@@ -35,8 +35,8 @@ const DetailPokemon = ({ navigation }) => {
     setIsLoading(false);
   };
 
-  useEffect(async () => {
-    await fetchPokemon();
+  useEffect(() => {
+    fetchPokemon();
   }, []);
 
   function tabTextStyle(index) {
