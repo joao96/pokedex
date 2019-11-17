@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
 import {
-  Container, CategoryItem, CategoryText, Logo,
+  CategoryItem, CategoryText, Logo,
 } from './styles';
 
 const pokeball = require('../../assets/pokeball.png');
@@ -11,15 +11,13 @@ const pokeball = require('../../assets/pokeball.png');
 const Category = ({
   text, color, component, navigation,
 }) => (
-  <Container>
-    <CategoryItem
-      style={{ backgroundColor: color }}
-      onPress={() => (component ? navigation.navigate(component) : null)}
-    >
-      <CategoryText>{text}</CategoryText>
-      <Logo source={pokeball} />
-    </CategoryItem>
-  </Container>
+  <CategoryItem
+    style={{ backgroundColor: color }}
+    onPress={() => (component ? navigation.navigate(component) : null)}
+  >
+    <CategoryText>{text}</CategoryText>
+    <Logo source={pokeball} />
+  </CategoryItem>
 );
 
 Category.defaultProps = {

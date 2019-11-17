@@ -40,7 +40,7 @@ export const ListItemContainer = styled.ScrollView.attrs({
 })``;
 
 export const ItemContainer = styled.View`
-  width: 155;
+  width: 48%;
   height: 110;
   borderRadius: 15;
   paddingTop: 42;
@@ -78,7 +78,7 @@ export const ItemAttr = styled.View`
 export const ItemAttrText = styled.Text`
   fontSize: 8;
   color: #FFFFFF;
-  
+
 `;
 
 export const Logo = styled.Image`
