@@ -14,8 +14,8 @@ export const TopContainer = styled.View`
 
 export const Logo = styled.Image`
     position: absolute;
-    width: 250;
-    height: 250;
+    width: 200;
+    height: 200;
     right: 0;
     top: 0;
 `;
@@ -36,7 +36,7 @@ export const SearchBarContainer = styled.View`
     background: #F5F5F5;
     border-radius: 100;
     alignSelf: center;
-    marginTop: 100;
+    marginTop: 40;
 `;
 
 export const SearchBarInput = styled.TextInput`
@@ -46,7 +46,6 @@ export const SearchBarInput = styled.TextInput`
 export const CategoriesContainer = styled.View`
     marginTop: 40;
     marginHorizontal: 18;
-    alignItems: center;
     justifyContent: space-between;
     flexDirection: row;
     flexWrap: wrap;
@@ -99,7 +98,7 @@ export const NewsTitle = styled.Text`
     font-size: 14;
     fontWeight: bold;
     color: #303943;
-    
+
 `;
 
 export const NewsImage = styled.Image`
