@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  marginHorizontal: 18;
 `;
 
 export const LoadingContainer = styled.View`
@@ -13,6 +12,7 @@ export const LoadingContainer = styled.View`
 `;
 
 export const Logo = styled.Image`
+  marginHorizontal: 18;
   position: absolute;
   width: 249.83;
   height: 249.83;
@@ -20,6 +20,7 @@ export const Logo = styled.Image`
 `;
 
 export const Title = styled.Text`
+  marginHorizontal: 18;
   fontSize: 30;
   color: #303943;
   fontFamily: ABeeZee-Italic;
@@ -30,6 +31,7 @@ export const Title = styled.Text`
 export const ListContainer = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
+    marginHorizontal: 18,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
