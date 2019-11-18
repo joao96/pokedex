@@ -26,10 +26,10 @@ const BaseStats = ({ baseStats }) => {
       <StatsContainer>
         { baseStats.map((el) => (
           <SingleStat>
-            <StatsText>{capitalize(el.stat.name)}</StatsText>
-            <StatsValue>{el.base_stat}</StatsValue>
+            <StatsText>{capitalize(el.name)}</StatsText>
+            <StatsValue>{el.value}</StatsValue>
             <StatsBlankLine>
-              <StatsLine style={lineColorPercentage(el.base_stat)} />
+              <StatsLine style={lineColorPercentage(el.value)} />
             </StatsBlankLine>
           </SingleStat>
         ))}
