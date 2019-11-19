@@ -61,12 +61,6 @@ const Routes = createAppContainer(createStackNavigator(
     },
     DetailPokemon: {
       screen: DetailPokemon,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name="arrow-back" size={28} color="#ffffff" onPress={() => navigation.pop(1)} />,
-        headerRight: <Icon name="favorite-border" size={28} color="#ffffff" onPress={() => navigation.navigate('ListPokedex', { addPokemon: navigation.state.params.id })} />,
-        headerStyle,
-        headerTransparent: true,
-      }),
     },
     MapScreen: {
       screen: MapScreen,

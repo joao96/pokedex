@@ -22,7 +22,7 @@ const MenuFilter = ({ navigation }) => {
           icon={open ? 'close' : 'menu'}
           actions={[
             {
-              icon: 'heart', color: '#6C79DB', label: 'Favourite Pokemon', onPress: () => handleNavigation(),
+              icon: 'heart', color: '#6C79DB', label: 'Favorite Pokemons', onPress: () => handleNavigation(),
             },
             {
               icon: 'pokemon-go', color: '#6C79DB', label: 'All Type', onPress: () => console.log('Pressed all type'),

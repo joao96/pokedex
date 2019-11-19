@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import reactotron from 'reactotron-react-native';
 import {
   Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
   TypeContainer, Type, TypeText, Logo, PokeBallLogo, DottedLogo,
@@ -31,6 +33,7 @@ const DetailPokemon = ({ navigation }) => {
     id,
   } = navigation.state.params;
 
+  reactotron.log(navigation);
 
   const fetchEvolution = async (pokemon, aux) => {
     aux.push(pokemon);
@@ -117,6 +120,7 @@ const DetailPokemon = ({ navigation }) => {
       </LoadingContainer>
     );
   }
+
   return (
     <Container style={{ backgroundColor: returnPokemonColor(pokemon.types) }}>
       <DataContainer>
@@ -140,7 +144,7 @@ const DetailPokemon = ({ navigation }) => {
         <TabContainer>
           <Tab onPress={() => { handleTabPress(0); }}>
             <TabText style={tabTextStyle(0)}>
-            About
+              About
             </TabText>
           </Tab>
           <Tab onPress={() => { handleTabPress(1); }}>
@@ -166,6 +170,28 @@ const DetailPokemon = ({ navigation }) => {
       <DottedLogo source={dotted} />
     </Container>
   );
+};
+
+DetailPokemon.navigationOptions = ({ navigation }) => {
+  function handleRightIcon() {
+    reactotron.log(navigation);
+    if (navigation.getParam('addPokemon')) {
+      return <Icon name="favorite" size={28} color="#ffffff" />;
+    }
+    return <Icon name="favorite-border" size={28} color="#ffffff" onPress={() => navigation.setParams({ addPokemon: navigation.state.params.id })} />;
+  }
+
+  return {
+    headerLeft: <Icon name="arrow-back" size={28} color="#ffffff" onPress={() => navigation.pop(1)} />,
+    headerRight: handleRightIcon(),
+    headerStyle: {
+      marginHorizontal: 28,
+      marginTop: 50,
+      elevation: 0, // android
+      shadowOpacity: 0,
+    },
+    headerTransparent: true,
+  };
 };
 
 DetailPokemon.propTypes = {
