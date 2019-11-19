@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
+
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   Container, Name, DataContainer, NameSequenceContainer, SequenceNumber,
@@ -50,19 +53,22 @@ const DetailPokemon = ({ navigation }) => {
     } else {
       setEvolutions(response.data);
     }
+
+    const myFavoritesStorage = await AsyncStorage.getItem('favorites');
+    navigation.setParams({ myFavoritesStorage });
   };
 
   useEffect(() => {
     fetchPokemon();
   }, []);
 
-  function tabTextStyle(index) {
+  const tabTextStyle = (index) => {
     if (!tabs[index]) {
       return { opacity: 0.3, borderBottomWidth: 0 };
     }
 
     return { opacity: 1, borderBottomWidth: 2 };
-  }
+  };
 
   const returnPokemonColor = (types) => {
     let color = 'transparent';
@@ -117,6 +123,7 @@ const DetailPokemon = ({ navigation }) => {
       </LoadingContainer>
     );
   }
+
   return (
     <Container style={{ backgroundColor: returnPokemonColor(pokemon.types) }}>
       <DataContainer>
@@ -140,7 +147,7 @@ const DetailPokemon = ({ navigation }) => {
         <TabContainer>
           <Tab onPress={() => { handleTabPress(0); }}>
             <TabText style={tabTextStyle(0)}>
-            About
+              About
             </TabText>
           </Tab>
           <Tab onPress={() => { handleTabPress(1); }}>
@@ -168,10 +175,59 @@ const DetailPokemon = ({ navigation }) => {
   );
 };
 
+DetailPokemon.navigationOptions = ({ navigation }) => {
+  const {
+    id,
+  } = navigation.state.params;
+
+  let myFavoritesIds = [];
+  let isListed = false;
+
+
+  const isFavorite = () => {
+    const myFavoritesStorage = navigation.getParam('myFavoritesStorage');
+
+    if (myFavoritesStorage) {
+      myFavoritesIds = JSON.parse(myFavoritesStorage);
+      if (myFavoritesIds.includes(id)) {
+        isListed = true;
+      }
+    }
+  };
+
+  const addFavorite = async () => {
+    myFavoritesIds.push(id);
+    await AsyncStorage.setItem('favorites', JSON.stringify(myFavoritesIds));
+    navigation.navigate('ListFavorites');
+  };
+
+  const handleRightIcon = () => {
+    isFavorite();
+    if (isListed) {
+      return <Icon name="favorite" size={28} color="#ffffff" />;
+    }
+    return <Icon name="favorite-border" size={28} color="#ffffff" onPress={() => addFavorite()} />;
+  };
+
+
+  return {
+    headerLeft: <Icon name="arrow-back" size={28} color="#ffffff" onPress={() => navigation.pop(1)} />,
+    headerRight: handleRightIcon(),
+    headerStyle: {
+      marginHorizontal: 28,
+      marginTop: 50,
+      elevation: 0, // android
+      shadowOpacity: 0,
+    },
+    headerTransparent: true,
+  };
+};
+
 DetailPokemon.propTypes = {
-  id: PropTypes.isRequired,
+  id: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     state: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
   }).isRequired,
 };
 

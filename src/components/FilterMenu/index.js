@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { withNavigation } from 'react-navigation';
 import { FAB, Portal, Provider } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
-const MenuFilter = () => {
+const MenuFilter = ({ navigation }) => {
   const [open, setOpen] = useState(false);
 
   const fabColor = () => ({ backgroundColor: '#6C79DB' });
+
+  const handleNavigation = () => {
+    navigation.navigate('ListFavorites');
+  };
 
   return (
     <Provider>
@@ -16,7 +22,7 @@ const MenuFilter = () => {
           icon={open ? 'close' : 'menu'}
           actions={[
             {
-              icon: 'heart', color: '#6C79DB', label: 'Favourite Pokemon', onPress: () => console.log('Pressed favourite'),
+              icon: 'heart', color: '#6C79DB', label: 'Favorite Pokemons', onPress: () => handleNavigation(),
             },
             {
               icon: 'pokemon-go', color: '#6C79DB', label: 'All Type', onPress: () => console.log('Pressed all type'),
@@ -37,5 +43,10 @@ const MenuFilter = () => {
   );
 };
 
+MenuFilter.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
-export default MenuFilter;
+export default withNavigation(MenuFilter);

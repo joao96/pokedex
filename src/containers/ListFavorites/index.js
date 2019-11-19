@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native';
 import ListPokemons from '../../components/ListPokemons';
 
@@ -9,19 +9,31 @@ import {
   Container, LoadingContainer,
 } from './styles';
 
-
-const ListPokedex = () => {
+const ListFavorites = () => {
   const [pokemons, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchPokemon = async () => {
+  const fetchMyPokemons = async () => {
     const response = await axios.get('https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons');
-    setPokemons(response.data);
+
+    const myFavoritesStorage = await AsyncStorage.getItem('favorites');
+    let myFavoritesIds = [];
+    if (myFavoritesStorage) {
+      myFavoritesIds = JSON.parse(myFavoritesStorage);
+    }
+
+    const myFavorites = [];
+    response.data.forEach((pokemon) => {
+      if (myFavoritesIds.includes(pokemon.id)) {
+        myFavorites.push(pokemon);
+      }
+    });
+    setPokemons(myFavorites);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchPokemon();
+    fetchMyPokemons();
   }, []);
 
   if (isLoading) {
@@ -36,17 +48,10 @@ const ListPokedex = () => {
     <Container>
       <ListPokemons
         pokemons={pokemons}
-        title="Pokedex"
+        title="Favorites"
       />
     </Container>
   );
 };
 
-ListPokedex.propTypes = {
-  navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-
-export default ListPokedex;
+export default ListFavorites;

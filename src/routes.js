@@ -7,10 +7,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from './components/HomeScreen';
+import Elements from './components/Elements';
 import ListPokedex from './containers/ListPokedex';
+import ListFavorites from './containers/ListFavorites';
 import DetailPokemon from './containers/DetailPokemon';
 import MapScreen from './containers/MapScreen';
-import Elements from './components/Elements';
 
 const headerStyle = { // remove bottom line and shadow from header
   marginHorizontal: 28,
@@ -40,6 +41,15 @@ const Routes = createAppContainer(createStackNavigator(
         headerTransparent: true,
       }),
     },
+    ListFavorites: {
+      screen: ListFavorites,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.pop(1)} />,
+        headerRight: <Icon name="menu" size={28} color="#303943" />,
+        headerStyle,
+        headerTransparent: true,
+      }),
+    },
     Elements: {
       screen: Elements,
       navigationOptions: ({ navigation }) => ({
@@ -51,13 +61,6 @@ const Routes = createAppContainer(createStackNavigator(
     },
     DetailPokemon: {
       screen: DetailPokemon,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name="arrow-back" size={28} color="#ffffff" onPress={() => navigation.navigate('ListPokedex')} />,
-        headerRight: <Icon name="favorite-border" size={28} color="#ffffff" />,
-        headerStyle,
-        headerTransparent: true,
-      }),
-
     },
     MapScreen: {
       screen: MapScreen,
