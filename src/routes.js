@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from './components/HomeScreen';
 import Elements from './components/Elements';
 import ListPokedex from './containers/ListPokedex';
+import ListFavorites from './containers/ListFavorites';
 import DetailPokemon from './containers/DetailPokemon';
 import MapScreen from './containers/MapScreen';
 
@@ -33,6 +34,15 @@ const Routes = createAppContainer(createStackNavigator(
     },
     ListPokedex: {
       screen: ListPokedex,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('HomeScreen')} />,
+        headerRight: <Icon name="menu" size={28} color="#303943" />,
+        headerStyle,
+        headerTransparent: true,
+      }),
+    },
+    ListFavorites: {
+      screen: ListFavorites,
       navigationOptions: ({ navigation }) => ({
         headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('HomeScreen')} />,
         headerRight: <Icon name="menu" size={28} color="#303943" />,

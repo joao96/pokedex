@@ -9,7 +9,7 @@ const MenuFilter = ({ navigation }) => {
   const fabColor = () => ({ backgroundColor: '#6C79DB' });
 
   const handleNavigation = () => {
-    navigation.navigate('ListPokedex', { favorites: true });
+    navigation.navigate('ListFavorites');
   };
 
   return (
