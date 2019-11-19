@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import axios from 'axios';
-
 import { ActivityIndicator } from 'react-native';
-import ListItemPokemon from '../../components/ListItemPokemon';
-import FilterMenu from '../../components/FilterMenu';
+import ListPokemons from '../../components/ListPokemons';
+
 import {
-  Container, Logo, Title, ListContainer, LoadingContainer,
+  Container, LoadingContainer,
 } from './styles';
 
-import colors from '../../assets/pokemons/colors';
-
-const pokeball = require('../../assets/pokeball.png');
 
 const ListPokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -27,12 +24,6 @@ const ListPokedex = () => {
     fetchPokemon();
   }, []);
 
-  const returnPokemonColor = (types) => {
-    let color = 'transparent';
-    types.forEach((type) => { color = colors[type.description]; });
-    return color;
-  };
-
   if (isLoading) {
     return (
       <LoadingContainer>
@@ -40,24 +31,22 @@ const ListPokedex = () => {
       </LoadingContainer>
     );
   }
+
   return (
     <Container>
-      <Logo source={pokeball} />
-      <Title>Pokedex</Title>
-      <ListContainer>
-        {
-          pokemons.map((pokemon) => (
-            <ListItemPokemon
-              key={pokemon.id}
-              pokemon={pokemon}
-              color={returnPokemonColor(pokemon.types)}
-            />
-          ))
-        }
-      </ListContainer>
-      <FilterMenu />
+      <ListPokemons
+        pokemons={pokemons}
+        title="Pokedex"
+      />
     </Container>
   );
 };
+
+ListPokedex.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 
 export default ListPokedex;
