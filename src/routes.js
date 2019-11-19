@@ -44,7 +44,7 @@ const Routes = createAppContainer(createStackNavigator(
     ListFavorites: {
       screen: ListFavorites,
       navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('HomeScreen')} />,
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.pop(1)} />,
         headerRight: <Icon name="menu" size={28} color="#303943" />,
         headerStyle,
         headerTransparent: true,

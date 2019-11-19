@@ -39,7 +39,7 @@ const ListItemPokemon = ({
 };
 
 ListItemPokemon.propTypes = {
-  pokemon: PropTypes.isRequired,
+  pokemon: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
