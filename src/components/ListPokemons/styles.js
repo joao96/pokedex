@@ -30,3 +30,22 @@ export const ListContainer = styled.ScrollView.attrs({
     flexWrap: 'wrap',
   },
 })``;
+
+export const NotificationContainer = styled.View`
+  flexDirection: row;
+  alignItems: center;
+  paddingHorizontal: 30;
+  paddingVertical: 10;
+  justifyContent: space-between;
+  background: #FFFFFF;
+  border-radius: 100;
+  alignSelf: center;
+  marginBottom: 30;
+`;
+
+export const NotificationText = styled.Text`
+  fontSize: 15;
+  color: #303943;
+  marginRight: 5;
+  fontFamily: ABeeZee-Regular;
+`;
