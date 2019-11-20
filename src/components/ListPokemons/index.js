@@ -1,27 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ListItemPokemon from '../ListItemPokemon';
 import FilterMenu from '../FilterMenu';
 import {
-  Container, Logo, Title, ListContainer,
+  Container, Logo, Title, ListContainer, NotificationContainer, NotificationText,
 } from './styles';
+
 
 import colors from '../../assets/pokemons/colors';
 
 const pokeball = require('../../assets/pokeball.png');
 
-const ListPokemons = ({ pokemons, title }) => {
+const ListPokemons = ({ pokemons, title, notification }) => {
   const returnPokemonColor = (types) => {
     let color = 'transparent';
     types.forEach((type) => { color = colors[type.description]; });
     return color;
   };
 
+  const handleNotification = () => {
+    if (notification) {
+      return (
+        <NotificationContainer>
+          <NotificationText>{notification}</NotificationText>
+          <Icon name="check-circle" size={20} color="#6C79DB" />
+        </NotificationContainer>
+      );
+    }
+    return null;
+  };
+
+
   return (
     <Container>
       <Logo source={pokeball} />
       <Title>{title}</Title>
+      {handleNotification()}
       <ListContainer>
         {
           pokemons.map((pokemon) => (
@@ -38,7 +54,12 @@ const ListPokemons = ({ pokemons, title }) => {
   );
 };
 
+ListPokemons.defaultProps = {
+  notification: '',
+};
+
 ListPokemons.propTypes = {
+  notification: PropTypes.string,
   pokemons: PropTypes.arrayOf.isRequired,
   title: PropTypes.string.isRequired,
 };

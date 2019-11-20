@@ -53,14 +53,25 @@ const DetailPokemon = ({ navigation }) => {
     } else {
       setEvolutions(response.data);
     }
+  };
 
-    const myFavoritesStorage = await AsyncStorage.getItem('favorites');
-    navigation.setParams({ myFavoritesStorage });
+  const isFavorite = async () => {
+    const Storage = JSON.parse(await AsyncStorage.getItem('favorites'));
+    if (Storage.length > 0) {
+      if (Storage.includes(id)) {
+        navigation.setParams({ isListed: true });
+      } else {
+        navigation.setParams({ isListed: false });
+      }
+    } else {
+      navigation.setParams({ isListed: false });
+    }
   };
 
   useEffect(() => {
     fetchPokemon();
-  }, []);
+    isFavorite();
+  }, [id]);
 
   const tabTextStyle = (index) => {
     if (!tabs[index]) {
@@ -176,39 +187,28 @@ const DetailPokemon = ({ navigation }) => {
 };
 
 DetailPokemon.navigationOptions = ({ navigation }) => {
-  const {
-    id,
-  } = navigation.state.params;
-
-  let myFavoritesIds = [];
-  let isListed = false;
-
-
-  const isFavorite = () => {
-    const myFavoritesStorage = navigation.getParam('myFavoritesStorage');
-
-    if (myFavoritesStorage) {
-      myFavoritesIds = JSON.parse(myFavoritesStorage);
-      if (myFavoritesIds.includes(id)) {
-        isListed = true;
-      }
-    }
-  };
-
-  const addFavorite = async () => {
-    myFavoritesIds.push(id);
-    await AsyncStorage.setItem('favorites', JSON.stringify(myFavoritesIds));
-    navigation.navigate('ListFavorites');
-  };
-
+  const { id } = navigation.state.params;
+  const isListed = navigation.getParam('isListed');
   const handleRightIcon = () => {
-    isFavorite();
     if (isListed) {
-      return <Icon name="favorite" size={28} color="#ffffff" />;
+      return (
+        <Icon
+          name="favorite"
+          size={28}
+          color="#ffffff"
+          onPress={() => navigation.navigate('ListFavorites', { id, action: 'DELETE_POKEMON' })}
+        />
+      );
     }
-    return <Icon name="favorite-border" size={28} color="#ffffff" onPress={() => addFavorite()} />;
+    return (
+      <Icon
+        name="favorite-border"
+        size={28}
+        color="#ffffff"
+        onPress={() => navigation.navigate('ListFavorites', { id, action: 'ADD_POKEMON' })}
+      />
+    );
   };
-
 
   return {
     headerLeft: <Icon name="arrow-back" size={28} color="#ffffff" onPress={() => navigation.pop(1)} />,
@@ -230,6 +230,5 @@ DetailPokemon.propTypes = {
     setParams: PropTypes.func.isRequired,
   }).isRequired,
 };
-
 
 export default DetailPokemon;
