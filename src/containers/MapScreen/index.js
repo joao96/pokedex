@@ -6,62 +6,86 @@ import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 
-import Geolocation from 'react-native-geolocation-service';
-import MapView, { Circle } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
+
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { CapturePokemonButton, CaptureText } from './styles';
 
 const MapScreen = ({ navigation }) => {
-  const INITIAL_STATE = {
-    latitude: -15.7997,
-    longitude: -47.8642,
-    latitudeDelta: 0.00922,
-    longitudeDelta: 0.00421,
-  };
-  const [position, setPosition] = useState(INITIAL_STATE);
-  let indicatorSize = 30;
+  const [isClose, setIsClose] = useState(false);
 
-  function findCoordinates() {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        const currentPosition = {
-          latitude,
-          longitude,
-          latitudeDelta: 0.00922,
-          longitudeDelta: 0.00421,
-        };
-        setPosition(currentPosition);
+  const [position, setPosition] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  const MARKER_POSITION = {
+    latitude: 0,
+    longitude: 0,
+  };
+
+  useEffect(() => {
+    const watchId = Geolocation.watchPosition(
+      (pos) => {
+        setPosition({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        });
       },
       (error) => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
-  }
 
-  useEffect(() => {
-    findCoordinates();
-  }, []);
+    if (Math.abs(position.longitude - MARKER_POSITION.longitude) > 0.00001) {
+      setIsClose(true);
+    } else {
+      setIsClose(false);
+    }
 
-  function handlePokeMapStyle() {
+    return () => Geolocation.clearWatch(watchId);
+  }, [position]);
+
+  const getMapRegion = () => ({
+    latitude: position.latitude,
+    longitude: position.longitude,
+    latitudeDelta: 0.00922,
+    longitudeDelta: 0.00421,
+  });
+
+  const handlePokeMapStyle = () => {
     const { pokeMap } = navigation.state.params;
     if (pokeMap) {
-      indicatorSize = 15;
       return { flex: 1 };
     }
 
     return { width: 334, height: 149 };
-  }
+  };
+
 
   return (
     <MapView
+      followsUserLocation
+      showsUserLocation
       style={handlePokeMapStyle()}
-      region={position}
+      provider={PROVIDER_GOOGLE}
+      region={getMapRegion()}
     >
-      <Circle
-        center={position}
-        radius={indicatorSize}
-        strokeColor="#3FA7F3"
-        fillColor="#3FA7F3"
+      <Marker
+        coordinate={{
+          latitude: position.latitude + 0.000020,
+          longitude: position.longitude + 0.000020,
+        }}
+        image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
       />
+      {
+        isClose && (
+        <CapturePokemonButton>
+          <CaptureText> Capture Pokemon </CaptureText>
+        </CapturePokemonButton>
+        )
+      }
     </MapView>
+
   );
 };
 

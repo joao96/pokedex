@@ -111,6 +111,7 @@ const DetailPokemon = ({ navigation }) => {
       case 0:
         return (
           <About
+            pokemon={pokemon}
             height={pokemon.height}
             weight={pokemon.weight}
             baseExp={pokemon.base_experience}

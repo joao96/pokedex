@@ -16,7 +16,7 @@ import {
 const text = 'Bulbasaur can be seen napping in bright sunlight.\nThere is a seed on its back. By soaking up the sun\'s\n rays, the seed grows progressively larger.';
 
 const About = ({
-  navigation, height, weight, baseExp,
+  navigation, pokemon, height, weight, baseExp,
 }) => (
   <Container>
     <Description>{text}</Description>
@@ -74,12 +74,15 @@ const About = ({
       </Row>
     </GeneralContainer>
 
-    <SectionText>
+    <SectionText onPress={() => {
+      navigation.navigate('MapScreen', { pokeMap: true, pokemon });
+    }}
+    >
       Location
     </SectionText>
 
     <GeneralContainer>
-      <MapInteraction onPress={() => { navigation.navigate('MapScreen', { pokeMap: true }); }}>
+      <MapInteraction>
         <MapScreen />
       </MapInteraction>
     </GeneralContainer>
@@ -117,6 +120,7 @@ About.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+  pokemon: PropTypes.object.isRequired,
 };
 
 
