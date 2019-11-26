@@ -27,7 +27,7 @@ const ListItemPokemon = ({
       <DescriptionContainer>
         <ItemName>{capitalize(name)}</ItemName>
         { types.map((type) => (
-          <ItemType>
+          <ItemType key={type.description}>
             <ItemTypeText>{capitalize(type.description)}</ItemTypeText>
           </ItemType>
         )) }
@@ -37,9 +37,20 @@ const ListItemPokemon = ({
   );
 };
 
+
 ListItemPokemon.propTypes = {
-  pokemon: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
+  pokemon: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    height: PropTypes.number.isRequired,
+    weight: PropTypes.number.isRequired,
+    evolutions: PropTypes.arrayOf.isRequired,
+    types: PropTypes.arrayOf.isRequired,
+    stats: PropTypes.arrayOf.isRequired,
+    moves: PropTypes.arrayOf.isRequired,
+  }).isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,

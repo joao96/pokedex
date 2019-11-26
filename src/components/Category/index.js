@@ -10,15 +10,18 @@ const pokeball = require('../../assets/pokeball.png');
 
 const Category = ({
   text, color, component, navigation, type,
-}) => (
-  <CategoryItem
-    style={{ backgroundColor: color }}
-    onPress={() => (component ? navigation.navigate(component, { type }) : null)}
-  >
-    <CategoryText>{text}</CategoryText>
-    <Logo source={pokeball} />
-  </CategoryItem>
-);
+}) => {
+  const handleBackgroundColor = () => ({ backgroundColor: color });
+  return (
+    <CategoryItem
+      style={handleBackgroundColor()}
+      onPress={() => (component ? navigation.navigate(component, { type }) : null)}
+    >
+      <CategoryText>{text}</CategoryText>
+      <Logo source={pokeball} />
+    </CategoryItem>
+  );
+};
 
 Category.defaultProps = {
   component: null,

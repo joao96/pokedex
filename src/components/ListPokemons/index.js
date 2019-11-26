@@ -60,7 +60,17 @@ ListPokemons.defaultProps = {
 
 ListPokemons.propTypes = {
   notification: PropTypes.string,
-  pokemons: PropTypes.arrayOf.isRequired,
+  pokemons: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    height: PropTypes.number.isRequired,
+    weight: PropTypes.number.isRequired,
+    evolutions: PropTypes.arrayOf.isRequired,
+    types: PropTypes.arrayOf.isRequired,
+    stats: PropTypes.arrayOf.isRequired,
+    moves: PropTypes.arrayOf.isRequired,
+  })).isRequired,
   title: PropTypes.string.isRequired,
 };
 
