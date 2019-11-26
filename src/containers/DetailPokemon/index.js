@@ -148,7 +148,7 @@ const DetailPokemon = ({ navigation }) => {
         </NameSequenceContainer>
         <TypeContainer>
           { pokemon.types.map((type) => (
-            <Type>
+            <Type key={type.description}>
               <TypeText>{capitalize(type.description)}</TypeText>
             </Type>
           )) }
@@ -224,9 +224,8 @@ DetailPokemon.navigationOptions = ({ navigation }) => {
 };
 
 DetailPokemon.propTypes = {
-  id: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
     setParams: PropTypes.func.isRequired,
   }).isRequired,
 };

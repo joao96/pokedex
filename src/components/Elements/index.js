@@ -65,7 +65,7 @@ const Elements = ({ navigation }) => {
       <ListElementContainer>
         {
           data.map((el) => (
-            <ElementContainer style={elementColor()}>
+            <ElementContainer style={elementColor()} key={el.name}>
               {/* <Logo source={{ uri: image }} /> */}
               <DescriptionContainer>
                 <ElementName>{capitalize(el.name.replace(/[^a-zA-Z0-9]/g, ' '))}</ElementName>
@@ -102,7 +102,7 @@ const Elements = ({ navigation }) => {
 
 Elements.propTypes = {
   navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
   }).isRequired,
 };
 

@@ -114,7 +114,7 @@ const ListFavorites = ({ navigation }) => {
 
 ListFavorites.propTypes = {
   navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
   }).isRequired,
 };
 

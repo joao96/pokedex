@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import reactotron from 'reactotron-react-native';
 import {
   Container, StatsContainer, StatsText,
   StatsLine, StatsValue, SingleStat, GeneralContainer,
@@ -17,15 +16,11 @@ const BaseStats = ({ baseStats }) => {
 
   const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
-  useEffect(() => {
-    reactotron.log(baseStats);
-  }, []);
-
   return (
     <Container>
       <StatsContainer>
         { baseStats.map((el) => (
-          <SingleStat>
+          <SingleStat key={el.name}>
             <StatsText>{capitalize(el.name)}</StatsText>
             <StatsValue>{el.value}</StatsValue>
             <StatsBlankLine>
@@ -37,14 +32,19 @@ const BaseStats = ({ baseStats }) => {
 
       <GeneralContainer>
         <SectionText>Type defenses</SectionText>
-        <InfoText>The effectiveness of each type on Charmander.</InfoText>
+        <InfoText>The effectiveness of each type on this Pokemon.</InfoText>
       </GeneralContainer>
     </Container>
   );
 };
 
 BaseStats.propTypes = {
-  baseStats: PropTypes.isRequired,
+  baseStats: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    pokemon_id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default BaseStats;

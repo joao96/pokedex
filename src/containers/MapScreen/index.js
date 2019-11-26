@@ -67,7 +67,7 @@ const MapScreen = ({ navigation }) => {
 
 MapScreen.propTypes = {
   navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
   }).isRequired,
 };
 
