@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
+import reactotron from 'reactotron-react-native';
 import {
   Container, Logo, ItemName, ItemType, ItemTypeText, DescriptionContainer, PokeballLogo,
 } from './styles';
@@ -19,6 +20,7 @@ const ListItemPokemon = ({
   const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
   const { name, types, image } = pokemon;
+  reactotron.log(pokemon);
 
   return (
     <Container style={{ backgroundColor: color }} onPress={handlePress}>

@@ -9,7 +9,12 @@ import PropTypes from 'prop-types';
 import Geolocation from '@react-native-community/geolocation';
 
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import axios from 'axios';
+import reactotron from 'reactotron-react-native';
 import { CapturePokemonButton, CaptureText } from './styles';
+import { UserContext } from '../..';
+
+const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/captures/';
 
 const MapScreen = ({ navigation }) => {
   const [isClose, setIsClose] = useState(false);
@@ -18,6 +23,8 @@ const MapScreen = ({ navigation }) => {
     latitude: 0,
     longitude: 0,
   });
+
+  const { state: userState } = React.useContext(UserContext);
 
   const MARKER_POSITION = {
     latitude: 0,
@@ -61,6 +68,14 @@ const MapScreen = ({ navigation }) => {
     return { width: 334, height: 149 };
   };
 
+  const capturePokemon = async () => {
+    reactotron.log(userState);
+    const response = await axios.post(`${api}`, { user_id: userState.user.id, pokemon_id: 1 });
+    if (response.data) {
+      navigation.navigate('CapturedPokemons');
+    }
+  };
+
 
   return (
     <MapView
@@ -79,7 +94,7 @@ const MapScreen = ({ navigation }) => {
       />
       {
         isClose && (
-        <CapturePokemonButton>
+        <CapturePokemonButton onPress={() => capturePokemon()}>
           <CaptureText> Capture Pokemon </CaptureText>
         </CapturePokemonButton>
         )

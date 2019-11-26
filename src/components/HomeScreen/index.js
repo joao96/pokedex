@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
+import DeviceInfo from 'react-native-device-info';
+
+import axios from 'axios';
+
+
+import reactotron from 'reactotron-react-native';
 import {
   Container, Logo, TopContainer, Title, CategoriesContainer,
   TitleNews, NewsContainer, SearchBarContainer,
@@ -9,6 +15,8 @@ import {
 
 import Category from '../Category';
 
+import { UserContext } from '../..';
+
 const pokeball = require('../../assets/pokeball.png');
 
 const text = 'What Pokemon\nare you looking for?';
@@ -17,6 +25,7 @@ const HomeScreen = () => {
   const [value, onChangeText] = useState();
   const [news, setNews] = useState([]);
   const [elementsType] = useState(['move', 'ability', 'item']);
+  const { dispatch } = useContext(UserContext);
 
   async function fetchPokemonNews() {
     // eslint-disable-next-line
@@ -25,8 +34,23 @@ const HomeScreen = () => {
     setNews(data.articles);
   }
 
+  async function createUser() {
+    const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/users/';
+
+    const response = await axios.post(`${api}`, { account_id: DeviceInfo.getUniqueId() });
+    reactotron.log('LOOK AT THE RESPONSE', response);
+
+    if (response.data) {
+      dispatch({
+        type: 'LOGIN',
+        payload: response.data,
+      });
+    }
+  }
+
   useEffect(() => {
     fetchPokemonNews();
+    createUser();
   }, []);
 
   return (
