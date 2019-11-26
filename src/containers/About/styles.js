@@ -21,7 +21,6 @@ export const BodyInfoContainer = styled.View`
   flexWrap: wrap;
   shadowColor: rgba(0,0,0, .1);
   backgroundColor: #fff;
-  shadowOffset: { height: 3, width: 4 }; 
   shadowOpacity: 1; 
   shadowRadius: 1;
   elevation: 5;
