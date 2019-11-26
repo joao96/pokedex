@@ -38,7 +38,6 @@ const HomeScreen = () => {
     const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/users/';
 
     const response = await axios.post(`${api}`, { account_id: DeviceInfo.getUniqueId() });
-    reactotron.log('LOOK AT THE RESPONSE', response);
 
     if (response.data) {
       dispatch({

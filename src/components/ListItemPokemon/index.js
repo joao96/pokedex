@@ -20,7 +20,6 @@ const ListItemPokemon = ({
   const capitalize = (pokemonName) => pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
   const { name, types, image } = pokemon;
-  reactotron.log(pokemon);
 
   return (
     <Container style={{ backgroundColor: color }} onPress={handlePress}>

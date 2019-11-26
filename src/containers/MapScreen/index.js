@@ -69,7 +69,6 @@ const MapScreen = ({ navigation }) => {
   };
 
   const capturePokemon = async () => {
-    reactotron.log(userState);
     const response = await axios.post(`${api}`, { user_id: userState.user.id, pokemon_id: 1 });
     if (response.data) {
       navigation.navigate('CapturedPokemons');
