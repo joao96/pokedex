@@ -8,10 +8,6 @@ const MenuFilter = ({ navigation }) => {
 
   const fabColor = () => ({ backgroundColor: '#6C79DB' });
 
-  const handleNavigation = () => {
-    navigation.navigate('ListFavorites');
-  };
-
   return (
     <Provider>
       <Portal>
@@ -22,13 +18,13 @@ const MenuFilter = ({ navigation }) => {
           icon={open ? 'close' : 'menu'}
           actions={[
             {
-              icon: 'heart', color: '#6C79DB', label: 'Favorite Pokemons', onPress: () => handleNavigation(),
+              icon: 'heart', color: '#6C79DB', label: 'Favorite Pokemons', onPress: () => navigation.navigate('ListFavorites'),
             },
             {
-              icon: 'pokemon-go', color: '#6C79DB', label: 'All Type', onPress: () => console.log('Pressed all type'),
+              icon: 'pokemon-go', color: '#6C79DB', label: 'Captured Pokemons', onPress: () => navigation.navigate('CapturedPokemons', { captured: true }),
             },
             {
-              icon: 'magnify', color: '#6C79DB', label: 'Search', onPress: () => console.log('Pressed search'),
+              icon: 'magnify', color: '#6C79DB', label: 'Missing Pokemons', onPress: () => navigation.navigate('CapturedPokemons', { captured: false }),
             },
           ]}
           onStateChange={({ open }) => setOpen(open)}

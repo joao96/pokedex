@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
-import reactotron from 'reactotron-react-native';
 import {
-  Container, Logo, ItemName, ItemType, ItemTypeText, DescriptionContainer, PokeballLogo,
+  Container, Logo, ItemName, ItemType, ItemTypeText, DescriptionContainer, PokeballLogo, Pokeball,
 } from './styles';
 
-const pokeball = require('../../assets/pokeball.png');
+const pokeballLogo = require('../../assets/pokeball.png');
+const pokeball = require('../../assets/captured.png');
 
 
 const ListItemPokemon = ({
@@ -24,7 +24,7 @@ const ListItemPokemon = ({
   return (
     <Container style={{ backgroundColor: color }} onPress={handlePress}>
       <Logo source={{ uri: image }} />
-      <PokeballLogo source={pokeball} />
+      <PokeballLogo source={pokeballLogo} />
       <DescriptionContainer>
         <ItemName>{capitalize(name)}</ItemName>
         { types.map((type) => (
@@ -33,6 +33,7 @@ const ListItemPokemon = ({
           </ItemType>
         )) }
       </DescriptionContainer>
+      {pokemon.captured ? <Pokeball source={pokeball} /> : null}
     </Container>
 
   );

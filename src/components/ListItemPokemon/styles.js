@@ -32,6 +32,15 @@ export const PokeballLogo = styled.Image`
     height: 83px;
 `;
 
+export const Pokeball = styled.Image`
+    position: absolute;
+    alignSelf: flex-end;
+    marginRight: 10; 
+    marginTop: 5;
+    width: 20;
+    height: 20;
+`;
+
 export const ItemName = styled.Text`
   fontSize: 14;
   marginTop: -25;

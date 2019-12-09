@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React from 'react';
 
 import { View } from 'react-native';
@@ -80,7 +81,7 @@ const Routes = createAppContainer(createStackNavigator(
     CapturedPokemons: {
       screen: CapturedPokemons,
       navigationOptions: ({ navigation }) => ({
-        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('HomeScreen')} />,
+        headerLeft: <Icon name="arrow-back" size={28} color="#303943" onPress={() => navigation.navigate('ListPokedex')} />,
         headerStyle,
         headerTransparent: true,
       }),

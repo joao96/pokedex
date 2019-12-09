@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActivityIndicator } from 'react-native';
 import ListPokemons from '../../components/ListPokemons';
@@ -16,29 +15,20 @@ const ListFavorites = ({ navigation }) => {
   const [notification, setNotification] = useState('');
 
   const fetchMyPokemons = async () => {
-    const response = await axios.get('https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons');
-
+    const storagePokemons = JSON.parse(await AsyncStorage.getItem('pokemons'));
     const myFavoritesStorage = await AsyncStorage.getItem('favorites');
     let myFavoritesIds = [];
     if (myFavoritesStorage) {
       myFavoritesIds = JSON.parse(myFavoritesStorage);
     }
-
     const myFavorites = [];
-    response.data.forEach((pokemon) => {
+    storagePokemons.forEach((pokemon) => {
       if (myFavoritesIds.includes(pokemon.id)) {
         myFavorites.push(pokemon);
       }
     });
     setPokemons(myFavorites);
     setIsLoading(false);
-  };
-
-  const fetchSinglePokemon = async (id) => {
-    const response = await axios.get(`https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons/${id}`);
-    const newPokemon = pokemons;
-    newPokemon.push(response.data);
-    setPokemons(newPokemon);
   };
 
   const addFavorite = async (id) => {
@@ -50,7 +40,7 @@ const ListFavorites = ({ navigation }) => {
     if (!myFavoritesIds.includes(id)) {
       myFavoritesIds.push(id);
       await AsyncStorage.setItem('favorites', JSON.stringify(myFavoritesIds));
-      fetchSinglePokemon(id);
+      fetchMyPokemons();
       return true;
     }
     return false;

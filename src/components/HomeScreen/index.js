@@ -15,6 +15,7 @@ import {
 
 import Category from '../Category';
 
+// eslint-disable-next-line import/no-cycle
 import { UserContext } from '../..';
 
 const pokeball = require('../../assets/pokeball.png');
@@ -27,6 +28,7 @@ const HomeScreen = () => {
   const [elementsType] = useState(['move', 'ability', 'item']);
   const { dispatch } = useContext(UserContext);
 
+  // eslint-disable-next-line no-unused-vars
   async function fetchPokemonNews() {
     // eslint-disable-next-line
     const response = await fetch('http://newsapi.org/v2/everything?q=Pokemon&sortBy=popularity&from=2019-11-04&to=2019-11-04&apiKey=4678cbab4c894c8584eb00facd140e40');
@@ -38,7 +40,8 @@ const HomeScreen = () => {
     const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/users/';
 
     const response = await axios.post(`${api}`, { account_id: DeviceInfo.getUniqueId() });
-
+    reactotron.log(response.data);
+    // 9a79dc2ad7f1f2f4
     if (response.data) {
       dispatch({
         type: 'LOGIN',
@@ -48,7 +51,7 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
-    fetchPokemonNews();
+    // fetchPokemonNews();
     createUser();
   }, []);
 

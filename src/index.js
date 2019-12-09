@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { StatusBar } from 'react-native';
-import reactotron from 'reactotron-react-native';
+// eslint-disable-next-line import/no-cycle
 import Routes from './routes';
 
 export const UserContext = React.createContext();
