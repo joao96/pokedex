@@ -80,7 +80,7 @@ const MapScreen = ({ navigation }) => {
     );
 
     return () => Geolocation.clearWatch(watchId);
-  }, []);
+  }, [position]);
 
 
   const getMapRegion = () => ({
