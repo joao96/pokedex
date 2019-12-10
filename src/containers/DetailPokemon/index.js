@@ -12,6 +12,7 @@ import {
   InfoContainer, TabContainer, Tab, TabText, LoadingContainer,
 } from './styles';
 
+// eslint-disable-next-line import/no-cycle
 import About from '../About';
 import BaseStats from '../../components/BaseStats';
 import Evolutions from '../../components/Evolution';
@@ -149,7 +150,7 @@ const DetailPokemon = ({ navigation }) => {
         </NameSequenceContainer>
         <TypeContainer>
           { pokemon.types.map((type) => (
-            <Type>
+            <Type key={type.description}>
               <TypeText>{capitalize(type.description)}</TypeText>
             </Type>
           )) }
@@ -225,9 +226,8 @@ DetailPokemon.navigationOptions = ({ navigation }) => {
 };
 
 DetailPokemon.propTypes = {
-  id: PropTypes.string.isRequired,
   navigation: PropTypes.shape({
-    state: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
     setParams: PropTypes.func.isRequired,
   }).isRequired,
 };

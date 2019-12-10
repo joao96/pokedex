@@ -109,13 +109,13 @@ const About = ({
 
 
 About.defaultProps = {
-  height: '',
-  weight: '',
-  baseExp: '',
+  height: 0,
+  weight: 0,
+  baseExp: 0,
 };
 
 About.propTypes = {
-  height: PropTypes.string,
+  height: PropTypes.number,
   weight: PropTypes.number,
   baseExp: PropTypes.number,
   navigation: PropTypes.shape({

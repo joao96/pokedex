@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropsType from 'prop-types';
+import PropTypes from 'prop-types';
 
 import {
   Container, Logo, Title, EvolutionContainer, PokemonContainer, PokemonName,
@@ -27,7 +27,7 @@ const Evolutions = ({ evolutions }) => {
         {
         pokemons.length > 1 ? (
           pokemons.map((pokemon) => (
-            <PokemonContainer>
+            <PokemonContainer key={pokemon.name}>
               <Logo source={{ uri: pokemon.image }} />
               <PokemonName>{capitalize(pokemon.name)}</PokemonName>
             </PokemonContainer>
@@ -42,7 +42,8 @@ const Evolutions = ({ evolutions }) => {
 };
 
 Evolutions.propTypes = {
-  evolutions: PropsType.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  evolutions: PropTypes.object.isRequired,
 };
 
 export default Evolutions;

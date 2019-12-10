@@ -78,7 +78,7 @@ const HomeScreen = () => {
           </ButtonViewAll>
         </NewsHeader>
         { news.map((notice) => (
-          <NewsBody>
+          <NewsBody key={notice.content}>
             <NewsTitleContainer>
               <NewsTitle>
                 {`${notice.title.substring(0, 50)}...`}
