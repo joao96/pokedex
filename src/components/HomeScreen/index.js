@@ -4,8 +4,6 @@ import DeviceInfo from 'react-native-device-info';
 
 import axios from 'axios';
 
-
-import reactotron from 'reactotron-react-native';
 import {
   Container, Logo, TopContainer, Title, CategoriesContainer,
   TitleNews, NewsContainer, SearchBarContainer,
@@ -31,7 +29,7 @@ const HomeScreen = () => {
   // eslint-disable-next-line no-unused-vars
   async function fetchPokemonNews() {
     // eslint-disable-next-line
-    const response = await fetch('http://newsapi.org/v2/everything?q=Pokemon&sortBy=popularity&from=2019-11-04&to=2019-11-04&apiKey=4678cbab4c894c8584eb00facd140e40');
+    const response = await fetch('https://newsapi.org/v2/everything?q=pokemon&from=2019-11-10&sortBy=publishedAt&apiKey=4678cbab4c894c8584eb00facd140e40');
     const data = await response.json();
     setNews(data.articles);
   }
@@ -40,8 +38,6 @@ const HomeScreen = () => {
     const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/users/';
 
     const response = await axios.post(`${api}`, { account_id: DeviceInfo.getUniqueId() });
-    reactotron.log(response.data);
-    // 9a79dc2ad7f1f2f4
     if (response.data) {
       dispatch({
         type: 'LOGIN',
@@ -51,7 +47,7 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
-    // fetchPokemonNews();
+    fetchPokemonNews();
     createUser();
   }, []);
 

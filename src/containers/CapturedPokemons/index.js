@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import reactotron from 'reactotron-react-native';
 import ListPokemons from '../../components/ListPokemons';
 
 import {
@@ -19,7 +18,7 @@ const CapturedPokemons = ({ navigation }) => {
     const response = JSON.parse(await AsyncStorage.getItem('pokemons'));
     const { captured } = navigation.state.params;
     const pokemonsFiltered = response.filter((pokemon) => pokemon.captured === captured);
-    reactotron.log('hello', response);
+
     setPokemons(pokemonsFiltered);
     setIsLoading(false);
   };
@@ -40,7 +39,7 @@ const CapturedPokemons = ({ navigation }) => {
     <Container>
       <ListPokemons
         pokemons={pokemons}
-        title={navigation.state.params.captured ? 'Captured Pokemons' : 'Missing Pokemons'}
+        title={navigation.state.params.captured ? `Captured Pokemons - ${pokemons.length}/151` : `Missing Pokemons - ${pokemons.length}/151`}
       />
     </Container>
   );

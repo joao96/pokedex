@@ -19,6 +19,7 @@ const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/captures/';
 const MapScreen = ({ navigation }) => {
   const [isClose, setIsClose] = useState(false);
   const [pokemon, setPokemon] = useState(false);
+  const [radius, setRadius] = useState(100);
   const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState({
     latitude: 0,
@@ -29,8 +30,8 @@ const MapScreen = ({ navigation }) => {
 
   const checkIsClose = (locations, pos) => {
     locations.forEach((location) => {
-      if (Math.abs(pos.longitude - location.longitude) > 0.00001
-        && Math.abs(pos.latitude - location.latitude) > 0.00001) {
+      if (Math.abs(pos.longitude - location.longitude) < 0.001
+        && Math.abs(pos.latitude - location.latitude) < 0.001) {
         setIsClose(true);
       } else {
         setIsClose(false);
@@ -39,10 +40,9 @@ const MapScreen = ({ navigation }) => {
   };
 
   const generateMarkers = async (id, pos) => {
-    const R = 100; // meters
     const points = [];
     for (let i = 0; i < 3; i += 1) {
-      points.push(randomLocation.randomCirclePoint(pos, R));
+      points.push(randomLocation.randomCirclePoint(pos, radius));
     }
     setMarkers(points);
     checkIsClose(points, pos);
@@ -76,11 +76,11 @@ const MapScreen = ({ navigation }) => {
         }
       },
       (error) => Alert.alert(error.message),
-      { enableHighAccuracy: false, timeout: 20000, maximumAge: 3000 },
+      { enableHighAccuracy: false, timeout: 30000, maximumAge: 10000 },
     );
 
     return () => Geolocation.clearWatch(watchId);
-  }, [position]);
+  }, []);
 
 
   const getMapRegion = () => ({
@@ -114,6 +114,7 @@ const MapScreen = ({ navigation }) => {
     await AsyncStorage.setItem('pokemons', JSON.stringify(storagePokemons));
 
     if (response.data) {
+      setRadius(Math.abs(Math.random() * 1000));
       navigation.navigate('CapturedPokemons', { captured: true });
       generateMarkers(pokemon.id.toString(), position);
     }

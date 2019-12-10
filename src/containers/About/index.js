@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Foundation';
 
+// eslint-disable-next-line import/no-cycle
 import MapScreen from '../MapScreen';
 
 import {
