@@ -173,11 +173,11 @@ const DetailPokemon = ({ navigation }) => {
             Evolution
             </TabText>
           </Tab>
-          <Tab onPress={() => { handleTabPress(3); }}>
+          {/* <Tab onPress={() => { handleTabPress(3); }}>
             <TabText style={tabTextStyle(3)}>
             Moves
             </TabText>
-          </Tab>
+          </Tab> */}
         </TabContainer>
         {handleActiveTab()}
       </InfoContainer>

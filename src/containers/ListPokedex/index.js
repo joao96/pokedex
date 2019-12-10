@@ -42,7 +42,7 @@ const ListPokedex = () => {
 
   useEffect(() => {
     fetchPokemon();
-  }, []);
+  }, [pokemons]);
 
   if (isLoading) {
     return (
