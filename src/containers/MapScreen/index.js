@@ -19,7 +19,7 @@ const api = 'https://floating-escarpment-78741.herokuapp.com/api/v1/captures/';
 const MapScreen = ({ navigation }) => {
   const [isClose, setIsClose] = useState(false);
   const [pokemon, setPokemon] = useState(false);
-  const [radius, setRadius] = useState(100);
+  const [radius, setRadius] = useState(40);
   const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState({
     latitude: 0,
@@ -29,14 +29,15 @@ const MapScreen = ({ navigation }) => {
   const { state: userState } = React.useContext(UserContext);
 
   const checkIsClose = (locations, pos) => {
+    let counter = 0;
     locations.forEach((location) => {
       if (Math.abs(pos.longitude - location.longitude) < 0.001
         && Math.abs(pos.latitude - location.latitude) < 0.001) {
-        setIsClose(true);
-      } else {
-        setIsClose(false);
+        counter += 1;
       }
     });
+
+    if (counter > 0) { setIsClose(true); } else { setIsClose(false); }
   };
 
   const generateMarkers = async (id, pos) => {
@@ -59,6 +60,13 @@ const MapScreen = ({ navigation }) => {
     }
   };
 
+  const fetchPokemon = async (id, coords) => {
+    const api = `https://floating-escarpment-78741.herokuapp.com/api/v1/pokemons/${id}`;
+    const response = await axios.get(api);
+    setPokemon(response.data);
+    fetchPokemonLocation(response.data.id.toString(), coords);
+  };
+
 
   useEffect(() => {
     const watchId = Geolocation.watchPosition(
@@ -68,15 +76,15 @@ const MapScreen = ({ navigation }) => {
           longitude: pos.coords.longitude,
         });
 
-        const { pokemon } = navigation.state.params;
+        const { id } = navigation.state.params;
 
-        if (pokemon) {
-          setPokemon(pokemon);
-          fetchPokemonLocation(pokemon.id.toString(), pos.coords);
+
+        if (id) {
+          fetchPokemon(id, pos.coords);
         }
       },
       (error) => Alert.alert(error.message),
-      { enableHighAccuracy: false, timeout: 30000, maximumAge: 10000 },
+      { enableHighAccuracy: false, timeout: 60000, maximumAge: 10000 },
     );
 
     return () => Geolocation.clearWatch(watchId);
