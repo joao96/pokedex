@@ -76,7 +76,7 @@ const About = ({
     </GeneralContainer>
 
     <SectionText onPress={() => {
-      navigation.navigate('MapScreen', { pokeMap: true, pokemon });
+      navigation.navigate('MapScreen', { pokeMap: true, id: pokemon.id });
     }}
     >
       Location

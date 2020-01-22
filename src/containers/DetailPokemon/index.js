@@ -58,7 +58,7 @@ const DetailPokemon = ({ navigation }) => {
 
   const isFavorite = async () => {
     const Storage = JSON.parse(await AsyncStorage.getItem('favorites'));
-    if (Storage.length > 0) {
+    if (Storage) {
       if (Storage.includes(id)) {
         navigation.setParams({ isListed: true });
       } else {
@@ -173,11 +173,11 @@ const DetailPokemon = ({ navigation }) => {
             Evolution
             </TabText>
           </Tab>
-          <Tab onPress={() => { handleTabPress(3); }}>
+          {/* <Tab onPress={() => { handleTabPress(3); }}>
             <TabText style={tabTextStyle(3)}>
             Moves
             </TabText>
-          </Tab>
+          </Tab> */}
         </TabContainer>
         {handleActiveTab()}
       </InfoContainer>

@@ -25,7 +25,7 @@ const CapturedPokemons = ({ navigation }) => {
 
   useEffect(() => {
     fetchCaptures();
-  }, []);
+  }, [pokemons]);
 
   if (isLoading) {
     return (
