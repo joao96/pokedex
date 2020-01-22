@@ -8,8 +8,7 @@
   A Pokedex application with geolocation interaction made with React Native.
 </h4>
 <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/badge/objective--c-28.6%25-blue">
-  <img alt="GitHub important language" src="https://img.shields.io/badge/javascript-17.9%25-yellow">
+  <img alt="GitHub top language" src="https://img.shields.io/badge/javascript-81%25-blue">
 
   <img alt="GitHub language count" src="https://img.shields.io/badge/languages-5-blue">
 
