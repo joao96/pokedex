@@ -39,7 +39,8 @@
     "react-native/no-raw-text": "off",
     "react/state-in-constructor": "off",
     "no-shadow": "off",
-    "jsx-a11y/accessible-emoji": "off"
+    "jsx-a11y/accessible-emoji": "off",
+    "react/forbid-prop-types": "off"
   },
   "settings": {
     "import/resolver": {
