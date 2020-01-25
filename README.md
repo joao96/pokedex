@@ -49,19 +49,31 @@ if you prefer:
 yarn
 ```
 
-_Before run android build, setup [Android Studio](https://facebook.github.io/react-native/docs/android-setup.html)_
-
 **Step 3:**
 
 ### If Android
+
+Before run android build, setup [Android Studio](https://developer.android.com/studio/install?hl=pt-br)
+
+Using a physical device, it is required that your phone allows the connection with your computer. In order to do so, follow the instructions [here](https://developer.android.com/studio/command-line/adb?gclid=CjwKCAiA66_xBRBhEiwAhrMuLeA06GexOPWKXgEle6L1M-TbAILUc2EwVveoB1i5f7Os79UZI21ljBoCpx4QAvD_BwE).
+
+Open a terminal window and enter the following command:
+
+```
+yarn start
+```
+
+Once the Metro Bundler is activated and the dependency graph is fully loaded, open a second terminal window and enter:
 
 ```
 react-native run-android
 ```
 
-_Before running iOS build, Install [Xcode](https://developer.apple.com/xcode/download/)_
+The app should be loading on your device.
 
 ### If iOS
+
+Before running iOS build, Install [Xcode](https://developer.apple.com/xcode/download/)
 
 ```
 pod install
